@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="本文是《每天5分钟玩转docker》的阅读笔记  书籍购买：https:&#x2F;&#x2F;item.jd.com&#x2F;12200103.html docker info: 查看 docker 服务器的信息  第三章 docker 镜像">
+  <meta name="description" content="以前使用 Typora（markdown 编辑器） 记了很多笔记，最近发现使用 github pages + hexo + next + Typora 可以非常方便的同步本地笔记到博客上， 真是对程序员太友好了！这次同步的是之前阅读《每天5分钟玩转docker》时记的笔记。  书籍购买：https:&#x2F;&#x2F;item.jd.com&#x2F;12200103.html  第三章 docker 镜像">
 <meta property="og:type" content="article">
 <meta property="og:title" content="每天5分钟玩转docker">
 <meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/2021/07/10/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACdocker/index.html">
 <meta property="og:site_name" content="Chandson&#39;s Blog">
-<meta property="og:description" content="本文是《每天5分钟玩转docker》的阅读笔记  书籍购买：https:&#x2F;&#x2F;item.jd.com&#x2F;12200103.html docker info: 查看 docker 服务器的信息  第三章 docker 镜像">
+<meta property="og:description" content="以前使用 Typora（markdown 编辑器） 记了很多笔记，最近发现使用 github pages + hexo + next + Typora 可以非常方便的同步本地笔记到博客上， 真是对程序员太友好了！这次同步的是之前阅读《每天5分钟玩转docker》时记的笔记。  书籍购买：https:&#x2F;&#x2F;item.jd.com&#x2F;12200103.html  第三章 docker 镜像">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-10T11:52:36.000Z">
-<meta property="article:modified_time" content="2021-07-10T17:38:42.069Z">
+<meta property="article:modified_time" content="2021-07-10T17:51:20.967Z">
 <meta property="article:author" content="Chandson">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="调度">
@@ -200,7 +200,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-11 01:38:42" itemprop="dateModified" datetime="2021-07-11T01:38:42+08:00">2021-07-11</time>
+                <time title="修改时间：2021-07-11 01:51:20" itemprop="dateModified" datetime="2021-07-11T01:51:20+08:00">2021-07-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,7 +218,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.9k</span>
+              <span>4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -237,13 +237,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文是《每天5分钟玩转docker》的阅读笔记</p>
+        <p>以前使用 Typora（markdown 编辑器） 记了很多笔记，最近发现使用 github pages + hexo + next + Typora 可以非常方便的同步本地笔记到博客上， 真是对程序员太友好了！这次同步的是之前阅读《每天5分钟玩转docker》时记的笔记。</p>
 <ul>
 <li>书籍购买：https://item.jd.com/12200103.html</li>
-<li>docker info: 查看 docker 服务器的信息</li>
 </ul>
 <h2 id="第三章-docker-镜像">第三章 docker 镜像</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images / docker image ls</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker info: 查看 docker 服务器的信息</span><br><span class="line">docker images / docker image ls</span><br></pre></td></tr></table></figure>
 <h3 id="镜像的内部结构">镜像的内部结构</h3>
 <h4 id="base-镜像">base 镜像</h4>
 <ul>
@@ -266,7 +265,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">images</span><br><span class="line">history</span><br><span class="line">commit</span><br><span class="line">build</span><br><span class="line">tag</span><br><span class="line">pull</span><br><span class="line">push</span><br><span class="line">rmi</span><br><span class="line">Search</span><br></pre></td></tr></table></figure>
 <h2 id="第四章-docker-容器">第四章 docker 容器</h2>
 <h3 id="运行容器">运行容器</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker create 基于镜像创建容器</span><br><span class="line">docker start</span><br><span class="line"></span><br><span class="line">docker run -it （=create+start）</span><br><span class="line">-d 参数在后台启动容器</span><br><span class="line">docker attach &amp;&amp; **docker exec**（推荐 exec）</span><br><span class="line">docker logs</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker create 基于镜像创建容器</span><br><span class="line">docker start</span><br><span class="line"></span><br><span class="line">docker run -it （=create+start）</span><br><span class="line">-d 参数在后台启动容器</span><br><span class="line">docker attach &amp;&amp; docker exec（推荐 exec）</span><br><span class="line">docker logs</span><br></pre></td></tr></table></figure>
 <h3 id="stop-start-restart-kill-容器">stop/start/restart/kill 容器</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--restart=always</span><br><span class="line">--restart=on-failure:3</span><br></pre></td></tr></table></figure>
 <h3 id="pause-unpause-容器">pause/unpause 容器</h3>
@@ -570,7 +569,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">4k</span>
+    <span title="站点总字数">5k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
