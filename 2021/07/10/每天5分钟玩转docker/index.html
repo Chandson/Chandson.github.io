@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文是《每天5分钟玩转docker》的阅读笔记  书籍购买：https:&#x2F;&#x2F;item.jd.com&#x2F;12200103.html docker info: 查看 docker 服务器的信息  第三章 docker 镜像">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每天5分钟玩转docker">
+<meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/2021/07/10/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACdocker/index.html">
+<meta property="og:site_name" content="Chandson&#39;s Blog">
+<meta property="og:description" content="本文是《每天5分钟玩转docker》的阅读笔记  书籍购买：https:&#x2F;&#x2F;item.jd.com&#x2F;12200103.html docker info: 查看 docker 服务器的信息  第三章 docker 镜像">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-10T11:52:36.000Z">
+<meta property="article:modified_time" content="2021-07-10T12:35:48.304Z">
+<meta property="article:author" content="Chandson">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="调度">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Chandson/Chandson.github.io/2021/07/10/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACdocker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>每天5分钟玩转docker | Chandson's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chandson's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">胸怀坚定信仰</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Chandson/Chandson.github.io/2021/07/10/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACdocker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.jpg">
+      <meta itemprop="name" content="Chandson">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chandson's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          每天5分钟玩转docker
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-10 19:52:36 / 修改时间：20:35:48" itemprop="dateCreated datePublished" datetime="2021-07-10T19:52:36+08:00">2021-07-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B0%83%E5%BA%A6/" itemprop="url" rel="index"><span itemprop="name">调度</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文是《每天5分钟玩转docker》的阅读笔记</p>
+<ul>
+<li>书籍购买：<a target="_blank" rel="noopener" href="https://item.jd.com/12200103.html">https://item.jd.com/12200103.html</a></li>
+<li>docker info: 查看 docker 服务器的信息</li>
+</ul>
+<h2 id="第三章-docker-镜像"><a href="#第三章-docker-镜像" class="headerlink" title="第三章 docker 镜像"></a>第三章 docker 镜像</h2><ul>
+<li>docker images / docker image ls</li>
+</ul>
+<h3 id="镜像的内部结构"><a href="#镜像的内部结构" class="headerlink" title="镜像的内部结构"></a>镜像的内部结构</h3><h4 id="base-镜像"><a href="#base-镜像" class="headerlink" title="base 镜像"></a>base 镜像</h4><ul>
+<li>rootfs</li>
+<li>不同 linux 发型版的区别主要就是 rootfs</li>
+<li>容器只能使用 host 的 kernel，并且不能修改</li>
+</ul>
+<h4 id="镜像的分层结构"><a href="#镜像的分层结构" class="headerlink" title="镜像的分层结构"></a>镜像的分层结构</h4><ul>
+<li>容器层记录对镜像的修改，所有镜像层都是只读的，不会被容器修改，所以镜像可以被多个容器共享</li>
+</ul>
+<h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><ul>
+<li>docker commit</li>
+<li>Dockerfile: docker build -t ubuntu-with-vim-dockerfile .</li>
+</ul>
+<h4 id="查看镜像分层结构"><a href="#查看镜像分层结构" class="headerlink" title="查看镜像分层结构"></a>查看镜像分层结构</h4><ul>
+<li>Docker history</li>
+</ul>
+<h4 id="Dockerfile-常用指令"><a href="#Dockerfile-常用指令" class="headerlink" title="Dockerfile 常用指令"></a>Dockerfile 常用指令</h4><ul>
+<li>FROM</li>
+<li>MAINTAINER</li>
+<li>COPY</li>
+<li>ADD：会自动解压</li>
+<li>ENV</li>
+<li>EXPOSE</li>
+<li>VOLUME</li>
+<li>RUN</li>
+<li>CMD</li>
+<li>ENTRYPOINT</li>
+</ul>
+<h4 id="最佳实践-P45"><a href="#最佳实践-P45" class="headerlink" title="最佳实践 P45"></a>最佳实践 P45</h4><h3 id="更多-docker-命令"><a href="#更多-docker-命令" class="headerlink" title="更多 docker 命令"></a>更多 docker 命令</h3><ul>
+<li>images</li>
+<li>history</li>
+<li>commit</li>
+<li>build</li>
+<li>tag</li>
+<li>pull</li>
+<li>push</li>
+<li>rmi</li>
+<li>Search</li>
+</ul>
+<h2 id="第四章-docker-容器"><a href="#第四章-docker-容器" class="headerlink" title="第四章 docker 容器"></a>第四章 docker 容器</h2><h3 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h3><ul>
+<li><p>docker create 基于镜像创建容器</p>
+</li>
+<li><p>docker start</p>
+</li>
+<li><p>docker run -it （=create+start）</p>
+</li>
+<li><p>-d 参数在后台启动容器</p>
+</li>
+<li><p>docker attach &amp;&amp; <strong>docker exec</strong>（推荐 exec）</p>
+</li>
+<li><p>docker logs</p>
+</li>
+</ul>
+<h3 id="stop-start-restart-kill-容器"><a href="#stop-start-restart-kill-容器" class="headerlink" title="stop/start/restart/kill 容器"></a>stop/start/restart/kill 容器</h3><ul>
+<li>–restart=always</li>
+<li>–restart=on-failure:3</li>
+</ul>
+<h3 id="pause-unpause-容器"><a href="#pause-unpause-容器" class="headerlink" title="pause/unpause 容器"></a>pause/unpause 容器</h3><h3 id="rm-容器"><a href="#rm-容器" class="headerlink" title="rm 容器"></a>rm 容器</h3><ul>
+<li>docker rm 是删除容器，docker rmi 是删除镜像</li>
+</ul>
+<h3 id="资源限制"><a href="#资源限制" class="headerlink" title="资源限制"></a>资源限制</h3><h4 id="内存限制"><a href="#内存限制" class="headerlink" title="内存限制"></a>内存限制</h4><ul>
+<li>docker run -m 200M –memory-swap=300M progrium/stress –vm 1 –vm-bytes 280M</li>
+</ul>
+<h4 id="cpu-限额"><a href="#cpu-限额" class="headerlink" title="cpu 限额"></a>cpu 限额</h4><ul>
+<li>docker run –name container_A -it -c 1024 progrium/stress –cpu 1</li>
+<li>docker run –name container_B -it -c 512 progrium/stress –cpu 1</li>
+<li><strong>docker-machine ssh default</strong></li>
+</ul>
+<h4 id="block-IO-带宽限额-P68"><a href="#block-IO-带宽限额-P68" class="headerlink" title="block IO 带宽限额 P68"></a>block IO 带宽限额 P68</h4><ul>
+<li>block IO 权重</li>
+<li>限制 bps （byte per second）和 iops（io per second）</li>
+</ul>
+<h3 id="实现容器的底层技术"><a href="#实现容器的底层技术" class="headerlink" title="实现容器的底层技术"></a>实现容器的底层技术</h3><ul>
+<li><p>cgroup 实现资源限额</p>
+<ul>
+<li>ls /sys/fs/cgroup/cpu</li>
+<li>ls /sys/fs/cgroup/memory</li>
+<li>ls /sys/fs/cgroup/blkio</li>
+</ul>
+</li>
+<li><p>namespace 实现6种资源隔离</p>
+<ul>
+<li>Mount：让容器看上去拥有整个文件系统</li>
+<li>UTS：让容器有自己的 hostname</li>
+<li>IPC：让容器拥有自己的共享内存和信号量来实现进程间通信，而不会与 host 和启动容器的 IPC 混在一起</li>
+<li>PID：容器拥有自己独立的一套 PID</li>
+<li>Network：容器拥有自己独立的网卡/IP/路由等资源</li>
+<li>User：容器能够管理自己的用户</li>
+</ul>
+</li>
+</ul>
+<h2 id="第五章-网络"><a href="#第五章-网络" class="headerlink" title="第五章 网络"></a>第五章 网络</h2><ul>
+<li>docker network ls</li>
+<li>docker run -it –network=none centos-with-net-tools</li>
+</ul>
+<h3 id="host-网络"><a href="#host-网络" class="headerlink" title="host 网络"></a>host 网络</h3><ul>
+<li><p>docker run -it –network=host centos-with-net-tools</p>
+</li>
+<li><p>共享 docker host 的网络栈，存在端口冲突问题</p>
+</li>
+</ul>
+<h3 id="Bridge-网络"><a href="#Bridge-网络" class="headerlink" title="Bridge 网络"></a>Bridge 网络</h3><ul>
+<li>brctl show</li>
+<li>docker network inspect bridge</li>
+</ul>
+<h3 id="user-defined-网络"><a href="#user-defined-网络" class="headerlink" title="user-defined 网络"></a>user-defined 网络</h3><ul>
+<li>docker network create –driver bridge my_net</li>
+<li>docker network create –driver bridge –subnet 172.22.16.0/24 –gateway 172.22.16.1 my_net2</li>
+<li>docker run  -it –network=my_net2 –ip 172.22.16.18 centos-with-net-tools /bin/bash</li>
+<li>docker connect my_net2 xxxxxx</li>
+</ul>
+<h3 id="容器间通信"><a href="#容器间通信" class="headerlink" title="容器间通信"></a>容器间通信</h3><ul>
+<li>Host 网络: 容器对外网的访问(NAT)</li>
+<li>外部世界访问容器: 端口映射( ps aux | grep docker-proxy)</li>
+</ul>
+<h2 id="第六章-存储"><a href="#第六章-存储" class="headerlink" title="第六章 存储"></a>第六章 存储</h2><h3 id="storage-driver"><a href="#storage-driver" class="headerlink" title="storage driver"></a>storage driver</h3><ul>
+<li>分层结构: Copy-on-Write 技术</li>
+<li>Docker info</li>
+<li>无状态应用的容器 &amp;&amp; 有状态应用的容器</li>
+</ul>
+<h3 id="data-volume"><a href="#data-volume" class="headerlink" title="data volume"></a>data volume</h3><ul>
+<li>bind mount<ul>
+<li>-v $hostpath:$containerpath:ro</li>
+<li>应用: 将源码目录 mount 到容器，在 host 修改代码就可以看到应用的实时效果</li>
+</ul>
+</li>
+<li>docker managed volume<ul>
+<li>docker volume ls</li>
+<li>docker volume inspect xxxxxx</li>
+<li>docker run  -it -p 80:80 -v /testbylinyouquan centos-with-net-tools /bin/bash</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据共享"><a href="#数据共享" class="headerlink" title="数据共享"></a>数据共享</h3><h4 id="容器与-host-共享数据"><a href="#容器与-host-共享数据" class="headerlink" title="容器与 host 共享数据"></a>容器与 host 共享数据</h4><ul>
+<li>Docker cp</li>
+</ul>
+<h4 id="容器之间共享数据"><a href="#容器之间共享数据" class="headerlink" title="容器之间共享数据"></a>容器之间共享数据</h4><ul>
+<li>共享数据放在 bind mount 中，然后将其 mount 到多个容器</li>
+</ul>
+<h3 id="volume-container-P101"><a href="#volume-container-P101" class="headerlink" title="volume container P101"></a>volume container P101</h3><ul>
+<li>–volumes-from</li>
+</ul>
+<h3 id="data-packed-volume-container-P102"><a href="#data-packed-volume-container-P102" class="headerlink" title="data-packed volume container P102"></a>data-packed volume container P102</h3><h3 id="data-volume-生命周期管理"><a href="#data-volume-生命周期管理" class="headerlink" title="data volume 生命周期管理"></a>data volume 生命周期管理</h3><ul>
+<li>备份/恢复/迁移/销毁 data volume</li>
+<li>孤儿 volume，使用 docker volume rm 删除</li>
+</ul>
+<h2 id="第七章-多主机管理"><a href="#第七章-多主机管理" class="headerlink" title="第七章 多主机管理"></a>第七章 多主机管理</h2><h3 id="创建-machine"><a href="#创建-machine" class="headerlink" title="创建 machine"></a>创建 machine</h3><ul>
+<li><p>docker-machine create –driver virtualbox lyq-host1</p>
+</li>
+<li><p>docker-machine ls</p>
+</li>
+<li><p>docker-machine ssh default</p>
+</li>
+<li><p>docker-machine ssh lyq-host1</p>
+</li>
+<li><p>docker-machine env lyq-host1</p>
+</li>
+<li><p>eval $(docker-machine env)</p>
+</li>
+</ul>
+<h2 id="第八章-容器网络"><a href="#第八章-容器网络" class="headerlink" title="第八章 容器网络"></a>第八章 容器网络</h2><p>P118-P172</p>
+<ul>
+<li>跨主机网络方案<ul>
+<li>Docker 原生的 overlay 和 macvlan</li>
+<li>第三方方案：flannel/weave/calico</li>
+</ul>
+</li>
+<li>libnetwork &amp; CNM（Container Network Model）（P118）<ul>
+<li>Sandbox</li>
+<li>Endpoint</li>
+<li>Network</li>
+</ul>
+</li>
+</ul>
+<h3 id="overlay-网络"><a href="#overlay-网络" class="headerlink" title="overlay 网络"></a>overlay 网络</h3><h4 id="启动-consul-服务"><a href="#启动-consul-服务" class="headerlink" title="启动 consul 服务"></a>启动 consul 服务</h4><ul>
+<li>docker run -d -p 8500:8500 –name consul  progrium/consul -server -bootstrap</li>
+<li><a target="_blank" rel="noopener" href="http://192.168.99.101:8500/ui/#/dc1/services">http://192.168.99.101:8500/ui/#/dc1/services</a></li>
+<li>/etc/init.d/docker status</li>
+</ul>
+<h4 id="创建-overlay-节点"><a href="#创建-overlay-节点" class="headerlink" title="创建 overlay 节点"></a>创建 overlay 节点</h4><ul>
+<li><p>docker-machine create –driver virtualbox –engine-opt=”cluster-store=consul://$(docker-machine ip default):8500” –engine-opt=”cluster-advertise=eth1:2376”  consul-test-host1</p>
+</li>
+<li><p>docker-machine create –driver virtualbox –engine-opt=”cluster-store=consul://$(docker-machine ip default):8500” –engine-opt=”cluster-advertise=eth1:2376”  consul-test-host2</p>
+</li>
+<li><p>cat /var/lib/boot2docker/profile</p>
+</li>
+<li><p>docker network ls</p>
+</li>
+<li><p>docker network create –driver overlay ov_net1</p>
+</li>
+<li><p>docker network inspect ov_net1</p>
+</li>
+<li><p>docker run -itd –name bbox1 –network ov_net1 busybox</p>
+</li>
+<li><p>docker exec bbox1 ip r</p>
+</li>
+<li><p>docker network inspect docker_gwbridge</p>
+</li>
+<li><p>docker exec -it bbox1 ping -c 2 <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></p>
+</li>
+<li><p>docker run -itd –name bbox2 –network ov_net1 busybox</p>
+</li>
+<li><p>docker exec -it bbox1 ping -c 2 bbox2</p>
+</li>
+</ul>
+<p>Overlay 网络中的容器可以直接通信，同时 docker 也实现了 DNS 服务</p>
+<ul>
+<li><p>ip netns exec 1-defedcd6bf brctl show</p>
+</li>
+<li><p>ip netns exec 1-defedcd6bf ip -d l show vxlan0</p>
+</li>
+</ul>
+<h4 id="boot2docker-安装包"><a href="#boot2docker-安装包" class="headerlink" title="boot2docker 安装包"></a>boot2docker 安装包</h4><ul>
+<li> tce-load -wi vim</li>
+<li> tce-load -wi bridge-utils（安装 brutal）</li>
+</ul>
+<h2 id="第九章-容器监控"><a href="#第九章-容器监控" class="headerlink" title="第九章 容器监控"></a>第九章 容器监控</h2><ul>
+<li>docker container stats</li>
+<li>sysdig</li>
+<li>Weave scope（了解）</li>
+<li>cAdvisor：google 开发的容器监控工具</li>
+<li>Prometheus：非常优秀的监控工具<ul>
+<li>Grafana</li>
+</ul>
+</li>
+</ul>
+<h2 id="第十章-日志管理"><a href="#第十章-日志管理" class="headerlink" title="第十章 日志管理"></a>第十章 日志管理</h2><ul>
+<li><p>docker logs</p>
+</li>
+<li><p>filebeat + ELK，利用了 docker 默认的 logging driver json-file</p>
+<ul>
+<li>Elasticsearch</li>
+<li>Logstash</li>
+<li>Kibana</li>
+</ul>
+</li>
+<li><p>fluentd</p>
+</li>
+<li><p>Graylog：与 ELK 想提并论的一款集中式日志管理方案（了解）</p>
+</li>
+</ul>
+<h2 id="第十一章-数据管理"><a href="#第十一章-数据管理" class="headerlink" title="第十一章 数据管理"></a>第十一章 数据管理</h2><ul>
+<li>跨主机的 volume</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/%E8%B0%83%E5%BA%A6/" rel="tag"># 调度</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/10/%E5%8D%9A%E5%AE%A2%E4%BB%8B%E7%BB%8D/" rel="prev" title="博客介绍">
+      <i class="fa fa-chevron-left"></i> 博客介绍
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-docker-%E9%95%9C%E5%83%8F"><span class="nav-number">1.</span> <span class="nav-text">第三章 docker 镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">镜像的内部结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#base-%E9%95%9C%E5%83%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">base 镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%9A%84%E5%88%86%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">镜像的分层结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F"><span class="nav-number">1.2.</span> <span class="nav-text">构建镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F%E5%88%86%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">查看镜像分层结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dockerfile-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.2.</span> <span class="nav-text">Dockerfile 常用指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5-P45"><span class="nav-number">1.2.3.</span> <span class="nav-text">最佳实践 P45</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A-docker-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">更多 docker 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-docker-%E5%AE%B9%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">第四章 docker 容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">运行容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stop-start-restart-kill-%E5%AE%B9%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">stop&#x2F;start&#x2F;restart&#x2F;kill 容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pause-unpause-%E5%AE%B9%E5%99%A8"><span class="nav-number">2.3.</span> <span class="nav-text">pause&#x2F;unpause 容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm-%E5%AE%B9%E5%99%A8"><span class="nav-number">2.4.</span> <span class="nav-text">rm 容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="nav-number">2.5.</span> <span class="nav-text">资源限制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E9%99%90%E5%88%B6"><span class="nav-number">2.5.1.</span> <span class="nav-text">内存限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cpu-%E9%99%90%E9%A2%9D"><span class="nav-number">2.5.2.</span> <span class="nav-text">cpu 限额</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#block-IO-%E5%B8%A6%E5%AE%BD%E9%99%90%E9%A2%9D-P68"><span class="nav-number">2.5.3.</span> <span class="nav-text">block IO 带宽限额 P68</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%AE%B9%E5%99%A8%E7%9A%84%E5%BA%95%E5%B1%82%E6%8A%80%E6%9C%AF"><span class="nav-number">2.6.</span> <span class="nav-text">实现容器的底层技术</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BD%91%E7%BB%9C"><span class="nav-number">3.</span> <span class="nav-text">第五章 网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#host-%E7%BD%91%E7%BB%9C"><span class="nav-number">3.1.</span> <span class="nav-text">host 网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bridge-%E7%BD%91%E7%BB%9C"><span class="nav-number">3.2.</span> <span class="nav-text">Bridge 网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user-defined-%E7%BD%91%E7%BB%9C"><span class="nav-number">3.3.</span> <span class="nav-text">user-defined 网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">3.4.</span> <span class="nav-text">容器间通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%AD%98%E5%82%A8"><span class="nav-number">4.</span> <span class="nav-text">第六章 存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#storage-driver"><span class="nav-number">4.1.</span> <span class="nav-text">storage driver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data-volume"><span class="nav-number">4.2.</span> <span class="nav-text">data volume</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB"><span class="nav-number">4.3.</span> <span class="nav-text">数据共享</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E4%B8%8E-host-%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE"><span class="nav-number">4.3.1.</span> <span class="nav-text">容器与 host 共享数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE"><span class="nav-number">4.3.2.</span> <span class="nav-text">容器之间共享数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volume-container-P101"><span class="nav-number">4.4.</span> <span class="nav-text">volume container P101</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data-packed-volume-container-P102"><span class="nav-number">4.5.</span> <span class="nav-text">data-packed volume container P102</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data-volume-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86"><span class="nav-number">4.6.</span> <span class="nav-text">data volume 生命周期管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%A4%9A%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">第七章 多主机管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-machine"><span class="nav-number">5.1.</span> <span class="nav-text">创建 machine</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C"><span class="nav-number">6.</span> <span class="nav-text">第八章 容器网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#overlay-%E7%BD%91%E7%BB%9C"><span class="nav-number">6.1.</span> <span class="nav-text">overlay 网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-consul-%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.1.1.</span> <span class="nav-text">启动 consul 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-overlay-%E8%8A%82%E7%82%B9"><span class="nav-number">6.1.2.</span> <span class="nav-text">创建 overlay 节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#boot2docker-%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-number">6.1.3.</span> <span class="nav-text">boot2docker 安装包</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E5%AE%B9%E5%99%A8%E7%9B%91%E6%8E%A7"><span class="nav-number">7.</span> <span class="nav-text">第九章 容器监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86"><span class="nav-number">8.</span> <span class="nav-text">第十章 日志管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86"><span class="nav-number">9.</span> <span class="nav-text">第十一章 数据管理</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chandson"
+      src="/images/photo.jpg">
+  <p class="site-author-name" itemprop="name">Chandson</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Chandson" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Chandson"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whisperer.hn@gmail.com" title="E-Mail → mailto:whisperer.hn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chandson</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">4k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
