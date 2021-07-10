@@ -233,7 +233,7 @@
       
         <p>本文是《每天5分钟玩转docker》的阅读笔记</p>
 <ul>
-<li>书籍购买：<a target="_blank" rel="noopener" href="https://item.jd.com/12200103.html">https://item.jd.com/12200103.html</a></li>
+<li>书籍购买：https://item.jd.com/12200103.html</li>
 <li>docker info: 查看 docker 服务器的信息</li>
 </ul>
 <h2 id="第三章-docker-镜像">第三章 docker 镜像</h2>
@@ -310,8 +310,8 @@
 </ul>
 <h3 id="stop-start-restart-kill-容器">stop/start/restart/kill 容器</h3>
 <ul>
-<li>–restart=always</li>
-<li>–restart=on-failure:3</li>
+<li>--restart=always</li>
+<li>--restart=on-failure:3</li>
 </ul>
 <h3 id="pause-unpause-容器">pause/unpause 容器</h3>
 <h3 id="rm-容器">rm 容器</h3>
@@ -421,7 +421,7 @@
 </ul>
 <h3 id="volume-container-P101">volume container P101</h3>
 <ul>
-<li>–volumes-from</li>
+<li>--volumes-from</li>
 </ul>
 <h3 id="data-packed-volume-container-P102">data-packed volume container P102</h3>
 <h3 id="data-volume-生命周期管理">data volume 生命周期管理</h3>
@@ -472,16 +472,16 @@
 <h4 id="启动-consul-服务">启动 consul 服务</h4>
 <ul>
 <li>docker run -d -p 8500:8500 --name consul  progrium/consul -server -bootstrap</li>
-<li><a target="_blank" rel="noopener" href="http://192.168.99.101:8500/ui/#/dc1/services">http://192.168.99.101:8500/ui/#/dc1/services</a></li>
+<li>http://192.168.99.101:8500/ui/#/dc1/services</li>
 <li>/etc/init.d/docker status</li>
 </ul>
 <h4 id="创建-overlay-节点">创建 overlay 节点</h4>
 <ul>
 <li>
-<p>docker-machine create --driver virtualbox --engine-opt=“cluster-store=consul://$(docker-machine ip default):8500” --engine-opt=“cluster-advertise=eth1:2376”  consul-test-host1</p>
+<p>docker-machine create --driver virtualbox --engine-opt=&quot;cluster-store=consul://$(docker-machine ip default):8500&quot; --engine-opt=&quot;cluster-advertise=eth1:2376&quot;  consul-test-host1</p>
 </li>
 <li>
-<p>docker-machine create --driver virtualbox --engine-opt=“cluster-store=consul://$(docker-machine ip default):8500” --engine-opt=“cluster-advertise=eth1:2376”  consul-test-host2</p>
+<p>docker-machine create --driver virtualbox --engine-opt=&quot;cluster-store=consul://$(docker-machine ip default):8500&quot; --engine-opt=&quot;cluster-advertise=eth1:2376&quot;  consul-test-host2</p>
 </li>
 <li>
 <p>cat /var/lib/boot2docker/profile</p>
@@ -505,7 +505,7 @@
 <p>docker network inspect docker_gwbridge</p>
 </li>
 <li>
-<p>docker exec -it bbox1 ping -c 2 <a target="_blank" rel="noopener" href="http://www.baidu.com">www.baidu.com</a></p>
+<p>docker exec -it bbox1 ping -c 2 www.baidu.com</p>
 </li>
 <li>
 <p>docker run -itd --name bbox2 --network ov_net1 busybox</p>
