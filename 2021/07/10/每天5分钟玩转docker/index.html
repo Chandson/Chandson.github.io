@@ -212,7 +212,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.7k</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -236,25 +236,32 @@
 <li>书籍购买：<a target="_blank" rel="noopener" href="https://item.jd.com/12200103.html">https://item.jd.com/12200103.html</a></li>
 <li>docker info: 查看 docker 服务器的信息</li>
 </ul>
-<h2 id="第三章-docker-镜像"><a href="#第三章-docker-镜像" class="headerlink" title="第三章 docker 镜像"></a>第三章 docker 镜像</h2><ul>
+<h2 id="第三章-docker-镜像">第三章 docker 镜像</h2>
+<ul>
 <li>docker images / docker image ls</li>
 </ul>
-<h3 id="镜像的内部结构"><a href="#镜像的内部结构" class="headerlink" title="镜像的内部结构"></a>镜像的内部结构</h3><h4 id="base-镜像"><a href="#base-镜像" class="headerlink" title="base 镜像"></a>base 镜像</h4><ul>
+<h3 id="镜像的内部结构">镜像的内部结构</h3>
+<h4 id="base-镜像">base 镜像</h4>
+<ul>
 <li>rootfs</li>
 <li>不同 linux 发型版的区别主要就是 rootfs</li>
 <li>容器只能使用 host 的 kernel，并且不能修改</li>
 </ul>
-<h4 id="镜像的分层结构"><a href="#镜像的分层结构" class="headerlink" title="镜像的分层结构"></a>镜像的分层结构</h4><ul>
+<h4 id="镜像的分层结构">镜像的分层结构</h4>
+<ul>
 <li>容器层记录对镜像的修改，所有镜像层都是只读的，不会被容器修改，所以镜像可以被多个容器共享</li>
 </ul>
-<h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><ul>
+<h3 id="构建镜像">构建镜像</h3>
+<ul>
 <li>docker commit</li>
 <li>Dockerfile: docker build -t ubuntu-with-vim-dockerfile .</li>
 </ul>
-<h4 id="查看镜像分层结构"><a href="#查看镜像分层结构" class="headerlink" title="查看镜像分层结构"></a>查看镜像分层结构</h4><ul>
+<h4 id="查看镜像分层结构">查看镜像分层结构</h4>
+<ul>
 <li>Docker history</li>
 </ul>
-<h4 id="Dockerfile-常用指令"><a href="#Dockerfile-常用指令" class="headerlink" title="Dockerfile 常用指令"></a>Dockerfile 常用指令</h4><ul>
+<h4 id="Dockerfile-常用指令">Dockerfile 常用指令</h4>
+<ul>
 <li>FROM</li>
 <li>MAINTAINER</li>
 <li>COPY</li>
@@ -266,7 +273,9 @@
 <li>CMD</li>
 <li>ENTRYPOINT</li>
 </ul>
-<h4 id="最佳实践-P45"><a href="#最佳实践-P45" class="headerlink" title="最佳实践 P45"></a>最佳实践 P45</h4><h3 id="更多-docker-命令"><a href="#更多-docker-命令" class="headerlink" title="更多 docker 命令"></a>更多 docker 命令</h3><ul>
+<h4 id="最佳实践-P45">最佳实践 P45</h4>
+<h3 id="更多-docker-命令">更多 docker 命令</h3>
+<ul>
 <li>images</li>
 <li>history</li>
 <li>commit</li>
@@ -277,48 +286,66 @@
 <li>rmi</li>
 <li>Search</li>
 </ul>
-<h2 id="第四章-docker-容器"><a href="#第四章-docker-容器" class="headerlink" title="第四章 docker 容器"></a>第四章 docker 容器</h2><h3 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h3><ul>
-<li><p>docker create 基于镜像创建容器</p>
+<h2 id="第四章-docker-容器">第四章 docker 容器</h2>
+<h3 id="运行容器">运行容器</h3>
+<ul>
+<li>
+<p>docker create 基于镜像创建容器</p>
 </li>
-<li><p>docker start</p>
+<li>
+<p>docker start</p>
 </li>
-<li><p>docker run -it （=create+start）</p>
+<li>
+<p>docker run -it （=create+start）</p>
 </li>
-<li><p>-d 参数在后台启动容器</p>
+<li>
+<p>-d 参数在后台启动容器</p>
 </li>
-<li><p>docker attach &amp;&amp; <strong>docker exec</strong>（推荐 exec）</p>
+<li>
+<p>docker attach &amp;&amp; <strong>docker exec</strong>（推荐 exec）</p>
 </li>
-<li><p>docker logs</p>
+<li>
+<p>docker logs</p>
 </li>
 </ul>
-<h3 id="stop-start-restart-kill-容器"><a href="#stop-start-restart-kill-容器" class="headerlink" title="stop/start/restart/kill 容器"></a>stop/start/restart/kill 容器</h3><ul>
+<h3 id="stop-start-restart-kill-容器">stop/start/restart/kill 容器</h3>
+<ul>
 <li>–restart=always</li>
 <li>–restart=on-failure:3</li>
 </ul>
-<h3 id="pause-unpause-容器"><a href="#pause-unpause-容器" class="headerlink" title="pause/unpause 容器"></a>pause/unpause 容器</h3><h3 id="rm-容器"><a href="#rm-容器" class="headerlink" title="rm 容器"></a>rm 容器</h3><ul>
+<h3 id="pause-unpause-容器">pause/unpause 容器</h3>
+<h3 id="rm-容器">rm 容器</h3>
+<ul>
 <li>docker rm 是删除容器，docker rmi 是删除镜像</li>
 </ul>
-<h3 id="资源限制"><a href="#资源限制" class="headerlink" title="资源限制"></a>资源限制</h3><h4 id="内存限制"><a href="#内存限制" class="headerlink" title="内存限制"></a>内存限制</h4><ul>
-<li>docker run -m 200M –memory-swap=300M progrium/stress –vm 1 –vm-bytes 280M</li>
+<h3 id="资源限制">资源限制</h3>
+<h4 id="内存限制">内存限制</h4>
+<ul>
+<li>docker run -m 200M --memory-swap=300M progrium/stress --vm 1 --vm-bytes 280M</li>
 </ul>
-<h4 id="cpu-限额"><a href="#cpu-限额" class="headerlink" title="cpu 限额"></a>cpu 限额</h4><ul>
-<li>docker run –name container_A -it -c 1024 progrium/stress –cpu 1</li>
-<li>docker run –name container_B -it -c 512 progrium/stress –cpu 1</li>
+<h4 id="cpu-限额">cpu 限额</h4>
+<ul>
+<li>docker run --name container_A -it -c 1024 progrium/stress --cpu 1</li>
+<li>docker run --name container_B -it -c 512 progrium/stress --cpu 1</li>
 <li><strong>docker-machine ssh default</strong></li>
 </ul>
-<h4 id="block-IO-带宽限额-P68"><a href="#block-IO-带宽限额-P68" class="headerlink" title="block IO 带宽限额 P68"></a>block IO 带宽限额 P68</h4><ul>
+<h4 id="block-IO-带宽限额-P68">block IO 带宽限额 P68</h4>
+<ul>
 <li>block IO 权重</li>
 <li>限制 bps （byte per second）和 iops（io per second）</li>
 </ul>
-<h3 id="实现容器的底层技术"><a href="#实现容器的底层技术" class="headerlink" title="实现容器的底层技术"></a>实现容器的底层技术</h3><ul>
-<li><p>cgroup 实现资源限额</p>
+<h3 id="实现容器的底层技术">实现容器的底层技术</h3>
+<ul>
+<li>
+<p>cgroup 实现资源限额</p>
 <ul>
 <li>ls /sys/fs/cgroup/cpu</li>
 <li>ls /sys/fs/cgroup/memory</li>
 <li>ls /sys/fs/cgroup/blkio</li>
 </ul>
 </li>
-<li><p>namespace 实现6种资源隔离</p>
+<li>
+<p>namespace 实现6种资源隔离</p>
 <ul>
 <li>Mount：让容器看上去拥有整个文件系统</li>
 <li>UTS：让容器有自己的 hostname</li>
@@ -329,157 +356,212 @@
 </ul>
 </li>
 </ul>
-<h2 id="第五章-网络"><a href="#第五章-网络" class="headerlink" title="第五章 网络"></a>第五章 网络</h2><ul>
+<h2 id="第五章-网络">第五章 网络</h2>
+<ul>
 <li>docker network ls</li>
-<li>docker run -it –network=none centos-with-net-tools</li>
+<li>docker run -it --network=none centos-with-net-tools</li>
 </ul>
-<h3 id="host-网络"><a href="#host-网络" class="headerlink" title="host 网络"></a>host 网络</h3><ul>
-<li><p>docker run -it –network=host centos-with-net-tools</p>
+<h3 id="host-网络">host 网络</h3>
+<ul>
+<li>
+<p>docker run -it --network=host centos-with-net-tools</p>
 </li>
-<li><p>共享 docker host 的网络栈，存在端口冲突问题</p>
+<li>
+<p>共享 docker host 的网络栈，存在端口冲突问题</p>
 </li>
 </ul>
-<h3 id="Bridge-网络"><a href="#Bridge-网络" class="headerlink" title="Bridge 网络"></a>Bridge 网络</h3><ul>
+<h3 id="Bridge-网络">Bridge 网络</h3>
+<ul>
 <li>brctl show</li>
 <li>docker network inspect bridge</li>
 </ul>
-<h3 id="user-defined-网络"><a href="#user-defined-网络" class="headerlink" title="user-defined 网络"></a>user-defined 网络</h3><ul>
-<li>docker network create –driver bridge my_net</li>
-<li>docker network create –driver bridge –subnet 172.22.16.0/24 –gateway 172.22.16.1 my_net2</li>
-<li>docker run  -it –network=my_net2 –ip 172.22.16.18 centos-with-net-tools /bin/bash</li>
+<h3 id="user-defined-网络">user-defined 网络</h3>
+<ul>
+<li>docker network create --driver bridge my_net</li>
+<li>docker network create --driver bridge --subnet 172.22.16.0/24 --gateway 172.22.16.1 my_net2</li>
+<li>docker run  -it --network=my_net2 --ip 172.22.16.18 centos-with-net-tools /bin/bash</li>
 <li>docker connect my_net2 xxxxxx</li>
 </ul>
-<h3 id="容器间通信"><a href="#容器间通信" class="headerlink" title="容器间通信"></a>容器间通信</h3><ul>
+<h3 id="容器间通信">容器间通信</h3>
+<ul>
 <li>Host 网络: 容器对外网的访问(NAT)</li>
 <li>外部世界访问容器: 端口映射( ps aux | grep docker-proxy)</li>
 </ul>
-<h2 id="第六章-存储"><a href="#第六章-存储" class="headerlink" title="第六章 存储"></a>第六章 存储</h2><h3 id="storage-driver"><a href="#storage-driver" class="headerlink" title="storage driver"></a>storage driver</h3><ul>
+<h2 id="第六章-存储">第六章 存储</h2>
+<h3 id="storage-driver">storage driver</h3>
+<ul>
 <li>分层结构: Copy-on-Write 技术</li>
 <li>Docker info</li>
 <li>无状态应用的容器 &amp;&amp; 有状态应用的容器</li>
 </ul>
-<h3 id="data-volume"><a href="#data-volume" class="headerlink" title="data volume"></a>data volume</h3><ul>
-<li>bind mount<ul>
+<h3 id="data-volume">data volume</h3>
+<ul>
+<li>bind mount
+<ul>
 <li>-v $hostpath:$containerpath:ro</li>
 <li>应用: 将源码目录 mount 到容器，在 host 修改代码就可以看到应用的实时效果</li>
 </ul>
 </li>
-<li>docker managed volume<ul>
+<li>docker managed volume
+<ul>
 <li>docker volume ls</li>
 <li>docker volume inspect xxxxxx</li>
 <li>docker run  -it -p 80:80 -v /testbylinyouquan centos-with-net-tools /bin/bash</li>
 </ul>
 </li>
 </ul>
-<h3 id="数据共享"><a href="#数据共享" class="headerlink" title="数据共享"></a>数据共享</h3><h4 id="容器与-host-共享数据"><a href="#容器与-host-共享数据" class="headerlink" title="容器与 host 共享数据"></a>容器与 host 共享数据</h4><ul>
+<h3 id="数据共享">数据共享</h3>
+<h4 id="容器与-host-共享数据">容器与 host 共享数据</h4>
+<ul>
 <li>Docker cp</li>
 </ul>
-<h4 id="容器之间共享数据"><a href="#容器之间共享数据" class="headerlink" title="容器之间共享数据"></a>容器之间共享数据</h4><ul>
+<h4 id="容器之间共享数据">容器之间共享数据</h4>
+<ul>
 <li>共享数据放在 bind mount 中，然后将其 mount 到多个容器</li>
 </ul>
-<h3 id="volume-container-P101"><a href="#volume-container-P101" class="headerlink" title="volume container P101"></a>volume container P101</h3><ul>
+<h3 id="volume-container-P101">volume container P101</h3>
+<ul>
 <li>–volumes-from</li>
 </ul>
-<h3 id="data-packed-volume-container-P102"><a href="#data-packed-volume-container-P102" class="headerlink" title="data-packed volume container P102"></a>data-packed volume container P102</h3><h3 id="data-volume-生命周期管理"><a href="#data-volume-生命周期管理" class="headerlink" title="data volume 生命周期管理"></a>data volume 生命周期管理</h3><ul>
+<h3 id="data-packed-volume-container-P102">data-packed volume container P102</h3>
+<h3 id="data-volume-生命周期管理">data volume 生命周期管理</h3>
+<ul>
 <li>备份/恢复/迁移/销毁 data volume</li>
 <li>孤儿 volume，使用 docker volume rm 删除</li>
 </ul>
-<h2 id="第七章-多主机管理"><a href="#第七章-多主机管理" class="headerlink" title="第七章 多主机管理"></a>第七章 多主机管理</h2><h3 id="创建-machine"><a href="#创建-machine" class="headerlink" title="创建 machine"></a>创建 machine</h3><ul>
-<li><p>docker-machine create –driver virtualbox lyq-host1</p>
+<h2 id="第七章-多主机管理">第七章 多主机管理</h2>
+<h3 id="创建-machine">创建 machine</h3>
+<ul>
+<li>
+<p>docker-machine create --driver virtualbox lyq-host1</p>
 </li>
-<li><p>docker-machine ls</p>
+<li>
+<p>docker-machine ls</p>
 </li>
-<li><p>docker-machine ssh default</p>
+<li>
+<p>docker-machine ssh default</p>
 </li>
-<li><p>docker-machine ssh lyq-host1</p>
+<li>
+<p>docker-machine ssh lyq-host1</p>
 </li>
-<li><p>docker-machine env lyq-host1</p>
+<li>
+<p>docker-machine env lyq-host1</p>
 </li>
-<li><p>eval $(docker-machine env)</p>
+<li>
+<p>eval $(docker-machine env)</p>
 </li>
 </ul>
-<h2 id="第八章-容器网络"><a href="#第八章-容器网络" class="headerlink" title="第八章 容器网络"></a>第八章 容器网络</h2><p>P118-P172</p>
+<h2 id="第八章-容器网络">第八章 容器网络</h2>
+<p>P118-P172</p>
 <ul>
-<li>跨主机网络方案<ul>
+<li>跨主机网络方案
+<ul>
 <li>Docker 原生的 overlay 和 macvlan</li>
 <li>第三方方案：flannel/weave/calico</li>
 </ul>
 </li>
-<li>libnetwork &amp; CNM（Container Network Model）（P118）<ul>
+<li>libnetwork &amp; CNM（Container Network Model）（P118）
+<ul>
 <li>Sandbox</li>
 <li>Endpoint</li>
 <li>Network</li>
 </ul>
 </li>
 </ul>
-<h3 id="overlay-网络"><a href="#overlay-网络" class="headerlink" title="overlay 网络"></a>overlay 网络</h3><h4 id="启动-consul-服务"><a href="#启动-consul-服务" class="headerlink" title="启动 consul 服务"></a>启动 consul 服务</h4><ul>
-<li>docker run -d -p 8500:8500 –name consul  progrium/consul -server -bootstrap</li>
+<h3 id="overlay-网络">overlay 网络</h3>
+<h4 id="启动-consul-服务">启动 consul 服务</h4>
+<ul>
+<li>docker run -d -p 8500:8500 --name consul  progrium/consul -server -bootstrap</li>
 <li><a target="_blank" rel="noopener" href="http://192.168.99.101:8500/ui/#/dc1/services">http://192.168.99.101:8500/ui/#/dc1/services</a></li>
 <li>/etc/init.d/docker status</li>
 </ul>
-<h4 id="创建-overlay-节点"><a href="#创建-overlay-节点" class="headerlink" title="创建 overlay 节点"></a>创建 overlay 节点</h4><ul>
-<li><p>docker-machine create –driver virtualbox –engine-opt=”cluster-store=consul://$(docker-machine ip default):8500” –engine-opt=”cluster-advertise=eth1:2376”  consul-test-host1</p>
+<h4 id="创建-overlay-节点">创建 overlay 节点</h4>
+<ul>
+<li>
+<p>docker-machine create --driver virtualbox --engine-opt=“cluster-store=consul://$(docker-machine ip default):8500” --engine-opt=“cluster-advertise=eth1:2376”  consul-test-host1</p>
 </li>
-<li><p>docker-machine create –driver virtualbox –engine-opt=”cluster-store=consul://$(docker-machine ip default):8500” –engine-opt=”cluster-advertise=eth1:2376”  consul-test-host2</p>
+<li>
+<p>docker-machine create --driver virtualbox --engine-opt=“cluster-store=consul://$(docker-machine ip default):8500” --engine-opt=“cluster-advertise=eth1:2376”  consul-test-host2</p>
 </li>
-<li><p>cat /var/lib/boot2docker/profile</p>
+<li>
+<p>cat /var/lib/boot2docker/profile</p>
 </li>
-<li><p>docker network ls</p>
+<li>
+<p>docker network ls</p>
 </li>
-<li><p>docker network create –driver overlay ov_net1</p>
+<li>
+<p>docker network create --driver overlay ov_net1</p>
 </li>
-<li><p>docker network inspect ov_net1</p>
+<li>
+<p>docker network inspect ov_net1</p>
 </li>
-<li><p>docker run -itd –name bbox1 –network ov_net1 busybox</p>
+<li>
+<p>docker run -itd --name bbox1 --network ov_net1 busybox</p>
 </li>
-<li><p>docker exec bbox1 ip r</p>
+<li>
+<p>docker exec bbox1 ip r</p>
 </li>
-<li><p>docker network inspect docker_gwbridge</p>
+<li>
+<p>docker network inspect docker_gwbridge</p>
 </li>
-<li><p>docker exec -it bbox1 ping -c 2 <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></p>
+<li>
+<p>docker exec -it bbox1 ping -c 2 <a target="_blank" rel="noopener" href="http://www.baidu.com">www.baidu.com</a></p>
 </li>
-<li><p>docker run -itd –name bbox2 –network ov_net1 busybox</p>
+<li>
+<p>docker run -itd --name bbox2 --network ov_net1 busybox</p>
 </li>
-<li><p>docker exec -it bbox1 ping -c 2 bbox2</p>
+<li>
+<p>docker exec -it bbox1 ping -c 2 bbox2</p>
 </li>
 </ul>
 <p>Overlay 网络中的容器可以直接通信，同时 docker 也实现了 DNS 服务</p>
 <ul>
-<li><p>ip netns exec 1-defedcd6bf brctl show</p>
+<li>
+<p>ip netns exec 1-defedcd6bf brctl show</p>
 </li>
-<li><p>ip netns exec 1-defedcd6bf ip -d l show vxlan0</p>
+<li>
+<p>ip netns exec 1-defedcd6bf ip -d l show vxlan0</p>
 </li>
 </ul>
-<h4 id="boot2docker-安装包"><a href="#boot2docker-安装包" class="headerlink" title="boot2docker 安装包"></a>boot2docker 安装包</h4><ul>
-<li> tce-load -wi vim</li>
-<li> tce-load -wi bridge-utils（安装 brutal）</li>
+<h4 id="boot2docker-安装包">boot2docker 安装包</h4>
+<ul>
+<li>tce-load -wi vim</li>
+<li>tce-load -wi bridge-utils（安装 brutal）</li>
 </ul>
-<h2 id="第九章-容器监控"><a href="#第九章-容器监控" class="headerlink" title="第九章 容器监控"></a>第九章 容器监控</h2><ul>
+<h2 id="第九章-容器监控">第九章 容器监控</h2>
+<ul>
 <li>docker container stats</li>
 <li>sysdig</li>
 <li>Weave scope（了解）</li>
 <li>cAdvisor：google 开发的容器监控工具</li>
-<li>Prometheus：非常优秀的监控工具<ul>
+<li>Prometheus：非常优秀的监控工具
+<ul>
 <li>Grafana</li>
 </ul>
 </li>
 </ul>
-<h2 id="第十章-日志管理"><a href="#第十章-日志管理" class="headerlink" title="第十章 日志管理"></a>第十章 日志管理</h2><ul>
-<li><p>docker logs</p>
+<h2 id="第十章-日志管理">第十章 日志管理</h2>
+<ul>
+<li>
+<p>docker logs</p>
 </li>
-<li><p>filebeat + ELK，利用了 docker 默认的 logging driver json-file</p>
+<li>
+<p>filebeat + ELK，利用了 docker 默认的 logging driver json-file</p>
 <ul>
 <li>Elasticsearch</li>
 <li>Logstash</li>
 <li>Kibana</li>
 </ul>
 </li>
-<li><p>fluentd</p>
+<li>
+<p>fluentd</p>
 </li>
-<li><p>Graylog：与 ELK 想提并论的一款集中式日志管理方案（了解）</p>
+<li>
+<p>Graylog：与 ELK 想提并论的一款集中式日志管理方案（了解）</p>
 </li>
 </ul>
-<h2 id="第十一章-数据管理"><a href="#第十一章-数据管理" class="headerlink" title="第十一章 数据管理"></a>第十一章 数据管理</h2><ul>
+<h2 id="第十一章-数据管理">第十一章 数据管理</h2>
+<ul>
 <li>跨主机的 volume</li>
 </ul>
 
