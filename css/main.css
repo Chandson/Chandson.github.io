@@ -1168,7 +1168,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #5d14ff;
+  background: #ffb17c;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2567,4 +2567,13 @@ ul.breadcrumb li + li:last-child {
   .pagination {
     margin: 8px 0 0;
   }
+}
+.fa-footprints {
+  background: url("/images/footprints.svg");
+  width: 13.7px;
+  height: 16px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translateY(20%);
 }

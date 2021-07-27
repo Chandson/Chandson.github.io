@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="/js/src/echarts.min.js"></script>
+    <script src="/js/src/jquery.min.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="footprints" style="width: 100%;height:425px;"></div>
+    <script type="text/javascript">
+var myChart = echarts.init(document.getElementById('footprints'));
+    $.get('/js/src/beijing.json', result => {
+      // 注册 echarts 地图
+      echarts.registerMap('北京市', result);
+      var option = {
+        tooltip: {
+          trigger: 'item',
+          alwaysShowContent: true,
+          enterable: true,
+          formatter: function(params) {
+              var value = params.value;
+              return params.name + ': ' + value[2];
+          }
+        },
+        title: {
+          text: '北京地图',
+          x: "center",
+        },
+        geo: {
+          map: '北京市',
+          label: {},
+          roam: true,
+          itemStyle: {
+
+          }
+        },
+        series: [{
+          type: 'effectScatter',
+          coordinateSystem: 'geo',
+          rippleEffect: {
+            brushType: 'stroke'
+          },
+          symbolSize: function(val, params) {
+            return 8;
+          },
+          itemStyle: {                   // 配置每个数据点的样式
+            color: function(params) {
+              var color = '';
+              var value = params.value;
+              if(value[3] == true) {
+                color = 'blue'
+              }
+              if(value[3] == false) {
+                color = 'green'
+              }
+              if(value[3] == 'youquan') {
+                color = 'red'
+              }
+              if(value[3] == 'xiaomiao') {
+                color = 'red'
+              }
+              return color;
+            }
+          },
+          data: [
+              {
+                  name: '香炉峰',
+                  value: [116.178733, 39.991952, '海拔575m,2021-07-24成功打卡', true]
+              },
+              {
+                  name: '阳台山',
+                  value: [116.094258, 40.069821, '海拔1278m,计划在2021-07-24进行攀爬', false]
+              },
+              {
+                  name: '友权',
+                  value: [116.328709, 39.976334, '喜欢计算机', 'youquan']
+              },
+              {
+                  name: '小喵',
+                  value: [116.469409, 39.998521, '爱爬山爱读书', 'xiaomiao']
+              }
+          ],
+        }]
+      };
+      myChart.setOption(option);
+    })
+
+    </script>
+</body>
+</html>
