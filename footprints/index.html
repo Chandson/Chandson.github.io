@@ -18,7 +18,6 @@ var myChart = echarts.init(document.getElementById('footprints'));
       var option = {
         tooltip: {
           trigger: 'item',
-          alwaysShowContent: true,
           enterable: true,
           formatter: function(params) {
               var value = params.value;
@@ -44,7 +43,7 @@ var myChart = echarts.init(document.getElementById('footprints'));
             brushType: 'stroke'
           },
           symbolSize: function(val, params) {
-            return 8;
+            return 10;
           },
           itemStyle: {                   // 配置每个数据点的样式
             color: function(params) {
@@ -72,7 +71,7 @@ var myChart = echarts.init(document.getElementById('footprints'));
               },
               {
                   name: '阳台山',
-                  value: [116.094258, 40.069821, '海拔1278m,计划在2021-07-24进行攀爬', false]
+                  value: [116.094258, 40.069821, '海拔1278m,计划在2021-07-31进行攀爬', false]
               },
               {
                   name: '友权',
