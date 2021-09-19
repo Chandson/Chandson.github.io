@@ -20,7 +20,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="在看技术方案或者技术书籍的时候，会经常看见各种配图，主要有类图，流程图和时序图，通常我们是通过 processon 和 draw.io 在线来画图，画这些图时我们需要通过鼠标进行各种拖拽。我们今天介绍的 plantUML，你只需要写一些文字，然后 vscode 环境下按 alt + D（前提是已经装好了 plantUML 插件），就可以自动生成对应的 UML 图了。 常见配图 类图">
@@ -261,7 +261,7 @@
 </li>
 <li>使用 plantUML 绘画类图的一个例子</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">title plantUML 绘画类图</span><br><span class="line">package &quot;class UML 类图&quot; &lt;&lt;Frame&gt;&gt; &#123;</span><br><span class="line">abstract class 车</span><br><span class="line">小汽车 -up.|&gt; 车 : 实现</span><br><span class="line">自行车 -up.|&gt; 车 : 实现</span><br><span class="line">小汽车 -[hidden]right-&gt; 自行车</span><br><span class="line">小汽车 &lt;|-- SUV : 继承</span><br><span class="line">轮胎 -right-* 小汽车 : 组合</span><br><span class="line">发动机 -right-* 小汽车 : 组合</span><br><span class="line">轮胎 -[hidden]right-&gt; 发动机</span><br><span class="line">发动机 -[hidden]right-&gt; 小汽车</span><br><span class="line">轮胎 -[hidden]up-&gt; 车</span><br><span class="line">学生 -left.&gt; 自行车 : 依赖</span><br><span class="line">学生 -right-o 班级 : 聚合</span><br><span class="line">学生 -down-&gt; 身份证 : 关联</span><br><span class="line">&#125;</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">title plantUML 绘画类图</span><br><span class="line">package <span class="string">&quot;class UML 类图&quot;</span> &lt;&lt;Frame&gt;&gt; &#123;</span><br><span class="line"><span class="built_in">abstract</span> class 车</span><br><span class="line">小汽车 -up.|<span class="type">&gt; 车 : 实现</span></span><br><span class="line"><span class="type">自行车 -up</span>.|<span class="type">&gt; 车 : 实现</span></span><br><span class="line"><span class="type">小汽车 -[hidden</span>]<span class="built_in">right</span>-&gt; 自行车</span><br><span class="line">小汽车 &lt;|<span class="type">-- SUV</span> : 继承</span><br><span class="line">轮胎 -<span class="built_in">right</span>-* 小汽车 : 组合</span><br><span class="line">发动机 -<span class="built_in">right</span>-* 小汽车 : 组合</span><br><span class="line">轮胎 -[hidden]<span class="built_in">right</span>-&gt; 发动机</span><br><span class="line">发动机 -[hidden]<span class="built_in">right</span>-&gt; 小汽车</span><br><span class="line">轮胎 -[hidden]up-&gt; 车</span><br><span class="line">学生 -<span class="built_in">left</span>.&gt; 自行车 : 依赖</span><br><span class="line">学生 -<span class="built_in">right</span>-o 班级 : 聚合</span><br><span class="line">学生 -down-&gt; 身份证 : 关联</span><br><span class="line">&#125;</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
 <p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E7%B1%BB%E5%9B%BE.png" alt=""></p>
 <h2 id="流程图">流程图</h2>
 <ul>
@@ -284,7 +284,7 @@
 </li>
 <li>使用 plantUML 绘画时序图的一个例子</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">title 用户查询银行账号余额</span><br><span class="line">skinparam responseMessageBelowArrow true</span><br><span class="line">actor User</span><br><span class="line">participant &quot;App&quot; as A</span><br><span class="line">participant &quot;Auth Server&quot; as B</span><br><span class="line">participant &quot;Bank Server&quot; as C</span><br><span class="line"></span><br><span class="line">User -&gt; A: login</span><br><span class="line">activate A</span><br><span class="line"></span><br><span class="line">A -&gt; B: verify pwd</span><br><span class="line">activate B</span><br><span class="line"></span><br><span class="line">Alt if pwd is vaild</span><br><span class="line">  B --&gt; A: return JWT</span><br><span class="line">  A --&gt; User: return OK</span><br><span class="line">else else</span><br><span class="line">  B --&gt; A: failed</span><br><span class="line">  deactivate B</span><br><span class="line">  A --&gt; User: return Invaild</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">User -&gt; A: check balance</span><br><span class="line"></span><br><span class="line">A -&gt; C: query balance</span><br><span class="line">activate C</span><br><span class="line">C --&gt; A: return balance</span><br><span class="line">deactivate C</span><br><span class="line"></span><br><span class="line">A --&gt; User: return balance</span><br><span class="line">deactivate A</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">title 用户查询银行账号余额</span><br><span class="line">skinparam responseMessageBelowArrow <span class="literal">true</span></span><br><span class="line">actor User</span><br><span class="line">participant <span class="string">&quot;App&quot;</span> <span class="keyword">as</span> A</span><br><span class="line">participant <span class="string">&quot;Auth Server&quot;</span> <span class="keyword">as</span> B</span><br><span class="line">participant <span class="string">&quot;Bank Server&quot;</span> <span class="keyword">as</span> C</span><br><span class="line"></span><br><span class="line">User -&gt; A: login</span><br><span class="line">activate A</span><br><span class="line"></span><br><span class="line">A -&gt; B: verify pwd</span><br><span class="line">activate B</span><br><span class="line"></span><br><span class="line">Alt <span class="keyword">if</span> pwd <span class="keyword">is</span> vaild</span><br><span class="line">  B --&gt; A: <span class="keyword">return</span> JWT</span><br><span class="line">  A --&gt; User: <span class="keyword">return</span> OK</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">else</span></span><br><span class="line">  B --&gt; A: failed</span><br><span class="line">  deactivate B</span><br><span class="line">  A --&gt; User: <span class="keyword">return</span> Invaild</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">User -&gt; A: check balance</span><br><span class="line"></span><br><span class="line">A -&gt; C: query balance</span><br><span class="line">activate C</span><br><span class="line">C --&gt; A: <span class="keyword">return</span> balance</span><br><span class="line">deactivate C</span><br><span class="line"></span><br><span class="line">A --&gt; User: <span class="keyword">return</span> balance</span><br><span class="line">deactivate A</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
 <p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E6%97%B6%E5%BA%8F%E5%9B%BE.png" alt=""></p>
 <h1>常见绘画工具</h1>
 <ul>
@@ -323,7 +323,10 @@
     <a href="/2021/08/07/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/" rel="prev" title="敏捷开发">
       <i class="fa fa-chevron-left"></i> 敏捷开发
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/19/cgroup%E6%80%BB%E7%BB%93/" rel="next" title="cgroups 总结">
+      cgroups 总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -399,20 +402,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -456,12 +459,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">16k</span>
+    <span title="站点总字数">23k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15 分钟</span>
+    <span title="站点阅读时长">21 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
