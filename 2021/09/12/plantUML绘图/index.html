@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="在看技术方案或者技术书籍的时候，会经常看见各种配图，主要有类图，流程图和时序图，通常我们是通过 processon 和 draw.io 在线来画图，画这些图时我们需要通过鼠标进行各种拖拽。我们今天介绍的 plantUML，你只需要写一些文字，然后 vscode 环境下按 alt + D（前提是已经装好了 plantUML 插件），就可以自动生成对应的 UML 图了。 常见配图 类图">
+  <meta name="description" content="在看技术方案或者技术书籍的时候，会经常看见各种配图，主要有类图，流程图和时序图，通常我们是通过 processon 和 draw.io 在线来画图，画这些图时我们需要通过鼠标进行各种拖拽。我们今天介绍的 plantUML，你只需要写一些文字，然后 vscode 环境下按 alt + D（前提是已经装好了 plantUML 插件），就可以自动生成对应的 UML 图了。  常见配图  类图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="plantUML 绘图">
 <meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/2021/09/12/plantUML%E7%BB%98%E5%9B%BE/index.html">
 <meta property="og:site_name" content="Chandson&#39;s Blog">
-<meta property="og:description" content="在看技术方案或者技术书籍的时候，会经常看见各种配图，主要有类图，流程图和时序图，通常我们是通过 processon 和 draw.io 在线来画图，画这些图时我们需要通过鼠标进行各种拖拽。我们今天介绍的 plantUML，你只需要写一些文字，然后 vscode 环境下按 alt + D（前提是已经装好了 plantUML 插件），就可以自动生成对应的 UML 图了。 常见配图 类图">
+<meta property="og:description" content="在看技术方案或者技术书籍的时候，会经常看见各种配图，主要有类图，流程图和时序图，通常我们是通过 processon 和 draw.io 在线来画图，画这些图时我们需要通过鼠标进行各种拖拽。我们今天介绍的 plantUML，你只需要写一些文字，然后 vscode 环境下按 alt + D（前提是已经装好了 plantUML 插件），就可以自动生成对应的 UML 图了。  常见配图  类图">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E7%B1%BB%E5%9B%BE.png">
 <meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E6%97%B6%E5%BA%8F%E5%9B%BE.png">
@@ -245,9 +245,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在看技术方案或者技术书籍的时候，会经常看见各种配图，主要有类图，流程图和时序图，通常我们是通过 processon 和 draw.io 在线来画图，画这些图时我们需要通过鼠标进行各种拖拽。我们今天介绍的 plantUML，你只需要写一些文字，然后 vscode 环境下按 <code>alt + D</code>（前提是已经装好了 plantUML 插件），就可以自动生成对应的 UML 图了。</p>
-<h1>常见配图</h1>
-<h2 id="类图">类图</h2>
+        <p>在看技术方案或者技术书籍的时候，会经常看见各种配图，主要有类图，流程图和时序图，通常我们是通过 processon 和 <a target="_blank" rel="noopener" href="http://draw.io">draw.io</a> 在线来画图，画这些图时我们需要通过鼠标进行各种拖拽。我们今天介绍的 plantUML，你只需要写一些文字，然后 vscode 环境下按 <code>alt + D</code>（前提是已经装好了 plantUML 插件），就可以自动生成对应的 UML 图了。</p>
+<h1 id="常见配图"><a class="markdownIt-Anchor" href="#常见配图"></a> 常见配图</h1>
+<h2 id="类图"><a class="markdownIt-Anchor" href="#类图"></a> 类图</h2>
 <ul>
 <li>类的6种关系
 <ul>
@@ -262,12 +262,12 @@
 <li>使用 plantUML 绘画类图的一个例子</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">title plantUML 绘画类图</span><br><span class="line">package &quot;class UML 类图&quot; &lt;&lt;Frame&gt;&gt; &#123;</span><br><span class="line">abstract class 车</span><br><span class="line">小汽车 -up.|&gt; 车 : 实现</span><br><span class="line">自行车 -up.|&gt; 车 : 实现</span><br><span class="line">小汽车 -[hidden]right-&gt; 自行车</span><br><span class="line">小汽车 &lt;|-- SUV : 继承</span><br><span class="line">轮胎 -right-* 小汽车 : 组合</span><br><span class="line">发动机 -right-* 小汽车 : 组合</span><br><span class="line">轮胎 -[hidden]right-&gt; 发动机</span><br><span class="line">发动机 -[hidden]right-&gt; 小汽车</span><br><span class="line">轮胎 -[hidden]up-&gt; 车</span><br><span class="line">学生 -left.&gt; 自行车 : 依赖</span><br><span class="line">学生 -right-o 班级 : 聚合</span><br><span class="line">学生 -down-&gt; 身份证 : 关联</span><br><span class="line">&#125;</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
-<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E7%B1%BB%E5%9B%BE.png" alt=""></p>
-<h2 id="流程图">流程图</h2>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E7%B1%BB%E5%9B%BE.png" alt="" /></p>
+<h2 id="流程图"><a class="markdownIt-Anchor" href="#流程图"></a> 流程图</h2>
 <ul>
 <li>看流程图比较容易，而画流程图会有很多细节。一般我是边画边查😄</li>
 </ul>
-<h2 id="时序图">时序图</h2>
+<h2 id="时序图"><a class="markdownIt-Anchor" href="#时序图"></a> 时序图</h2>
 <ul>
 <li>时序图元素
 <ul>
@@ -285,8 +285,8 @@
 <li>使用 plantUML 绘画时序图的一个例子</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">title 用户查询银行账号余额</span><br><span class="line">skinparam responseMessageBelowArrow true</span><br><span class="line">actor User</span><br><span class="line">participant &quot;App&quot; as A</span><br><span class="line">participant &quot;Auth Server&quot; as B</span><br><span class="line">participant &quot;Bank Server&quot; as C</span><br><span class="line"></span><br><span class="line">User -&gt; A: login</span><br><span class="line">activate A</span><br><span class="line"></span><br><span class="line">A -&gt; B: verify pwd</span><br><span class="line">activate B</span><br><span class="line"></span><br><span class="line">Alt if pwd is vaild</span><br><span class="line">  B --&gt; A: return JWT</span><br><span class="line">  A --&gt; User: return OK</span><br><span class="line">else else</span><br><span class="line">  B --&gt; A: failed</span><br><span class="line">  deactivate B</span><br><span class="line">  A --&gt; User: return Invaild</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">User -&gt; A: check balance</span><br><span class="line"></span><br><span class="line">A -&gt; C: query balance</span><br><span class="line">activate C</span><br><span class="line">C --&gt; A: return balance</span><br><span class="line">deactivate C</span><br><span class="line"></span><br><span class="line">A --&gt; User: return balance</span><br><span class="line">deactivate A</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
-<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E6%97%B6%E5%BA%8F%E5%9B%BE.png" alt=""></p>
-<h1>常见绘画工具</h1>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E6%97%B6%E5%BA%8F%E5%9B%BE.png" alt="" /></p>
+<h1 id="常见绘画工具"><a class="markdownIt-Anchor" href="#常见绘画工具"></a> 常见绘画工具</h1>
 <ul>
 <li>
 <p><a target="_blank" rel="noopener" href="https://www.draw.io/">https://www.draw.io/</a></p>
@@ -295,7 +295,7 @@
 <p><a target="_blank" rel="noopener" href="https://www.processon.com/">https://www.processon.com/</a></p>
 </li>
 </ul>
-<h1>参考</h1>
+<h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://dlonng.com/posts/ailyun-oss">https://dlonng.com/posts/ailyun-oss</a></li>
 <li><a target="_blank" rel="noopener" href="https://devbins.github.io/post/plantuml/">https://devbins.github.io/post/plantuml/</a></li>
@@ -386,7 +386,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">常见配图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">1.2.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-number">1.3.</span> <span class="nav-text">时序图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">常见绘画工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%85%8D%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text"> 常见配图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text"> 类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">1.2.</span> <span class="nav-text"> 流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-number">1.3.</span> <span class="nav-text"> 时序图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%BB%98%E7%94%BB%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text"> 常见绘画工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text"> 参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -402,7 +402,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -459,12 +459,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">23k</span>
+    <span title="站点总字数">24k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">21 分钟</span>
+    <span title="站点阅读时长">22 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

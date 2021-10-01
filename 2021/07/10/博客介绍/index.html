@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="最近使用 github pages + hexo + next 搭建了这个博客，下面基于 mac 系统简单记录一下搭建博客的完整流程。  环境准备  终端下安装 brew，可以参考 https:&#x2F;&#x2F;brew.sh&#x2F;index_zh-cn 后面安装 node.js 需要用到 brew 这个命令">
+  <meta name="description" content="最近使用 github pages + hexo + next 搭建了这个博客，下面基于 mac 系统简单记录一下搭建博客的完整流程。   环境准备  终端下安装 brew，可以参考 https:&#x2F;&#x2F;brew.sh&#x2F;index_zh-cn 后面安装 node.js 需要用到 brew 这个命令">
 <meta property="og:type" content="article">
 <meta property="og:title" content="博客介绍">
 <meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/2021/07/10/%E5%8D%9A%E5%AE%A2%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="Chandson&#39;s Blog">
-<meta property="og:description" content="最近使用 github pages + hexo + next 搭建了这个博客，下面基于 mac 系统简单记录一下搭建博客的完整流程。  环境准备  终端下安装 brew，可以参考 https:&#x2F;&#x2F;brew.sh&#x2F;index_zh-cn 后面安装 node.js 需要用到 brew 这个命令">
+<meta property="og:description" content="最近使用 github pages + hexo + next 搭建了这个博客，下面基于 mac 系统简单记录一下搭建博客的完整流程。   环境准备  终端下安装 brew，可以参考 https:&#x2F;&#x2F;brew.sh&#x2F;index_zh-cn 后面安装 node.js 需要用到 brew 这个命令">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/images/github-pages-setting.jpg">
 <meta property="article:published_time" content="2021-07-09T18:50:56.000Z">
@@ -247,7 +247,7 @@
         <blockquote>
 <p>最近使用 github pages + hexo + next 搭建了这个博客，下面基于 mac 系统简单记录一下搭建博客的完整流程。</p>
 </blockquote>
-<h1>环境准备</h1>
+<h1 id="环境准备"><a class="markdownIt-Anchor" href="#环境准备"></a> 环境准备</h1>
 <ol>
 <li><strong>终端下安装 brew</strong>，可以参考 <a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn">https://brew.sh/index_zh-cn</a> 后面安装 node.js 需要用到 brew 这个命令</li>
 </ol>
@@ -255,12 +255,12 @@
 <ol start="2">
 <li><strong>安装 git</strong>，正常情况下 mac 系统自带 git 命令</li>
 <li><strong>准备 github 账号</strong>，如果还没有账号，可以到 <a href="https://github.com/">https://github.com/</a> 进行注册</li>
-<li><strong>github 上创建名为 ${github_id}.github.io 的公共仓库</strong>，例如我的是 Chandson.github.io</li>
+<li><strong>github 上创建名为 ${github_id}.github.io 的公共仓库</strong>，例如我的是 <a target="_blank" rel="noopener" href="http://Chandson.github.io">Chandson.github.io</a></li>
 <li><strong>安装 node.js</strong></li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br></pre></td></tr></table></figure>
-<h1>第一次搭建</h1>
-<h2 id="安装-hexo">安装 hexo</h2>
+<h1 id="第一次搭建"><a class="markdownIt-Anchor" href="#第一次搭建"></a> 第一次搭建</h1>
+<h2 id="安装-hexo"><a class="markdownIt-Anchor" href="#安装-hexo"></a> 安装 hexo</h2>
 <p>首先创建<strong>名为 ${github_id}.github.io</strong>博客主目录，注意 xxx 换成自己的 github 账号，然后进入到这个目录下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir xxx.github.io &amp;&amp; cd xxx.github.io</span><br></pre></td></tr></table></figure>
 <p>接着执行</p>
@@ -269,28 +269,28 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">├── _config.yml  // 站点配置文件</span><br><span class="line">├── package.json </span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|	  └── _posts   // 放置新建博客的位置</span><br><span class="line">└── themes       // 主题目录</span><br></pre></td></tr></table></figure>
 <p>然后再执行下面命令，打开 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> 就可以看到 hexo 博客效果了，按 Ctrl + C 关闭</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<h2 id="更换-hexo-主题为-nexT">更换 hexo 主题为 nexT</h2>
+<h2 id="更换-hexo-主题为-next"><a class="markdownIt-Anchor" href="#更换-hexo-主题为-next"></a> 更换 hexo 主题为 nexT</h2>
 <p>hexo 安装后，默认主题是 <a href="https://github.com/hexojs/hexo-theme-landscape">landscape</a>，我们把它换成比较流行的 <a href="https://github.com/theme-next/hexo-theme-next">nexT</a> 主题</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next.git themes/next</span><br></pre></td></tr></table></figure>
 <p>然后修改站点配置文件<code>_config.yml</code>文件中的 theme 为 next</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure>
 <p>重启 hexo，继续查看 hexo 效果，可以发现主题已经发生变化了</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
-<h2 id="将博客部署到-github-上">将博客部署到 github 上</h2>
-<h3 id="配置-github-pages">配置 github pages</h3>
-<p><img src="/images/github-pages-setting.jpg" alt="github-pages-setting"></p>
-<h3 id="配置-github-免密码登陆">配置 github 免密码登陆</h3>
+<h2 id="将博客部署到-github-上"><a class="markdownIt-Anchor" href="#将博客部署到-github-上"></a> 将博客部署到 github 上</h2>
+<h3 id="配置-github-pages"><a class="markdownIt-Anchor" href="#配置-github-pages"></a> 配置 github pages</h3>
+<p><img src="/images/github-pages-setting.jpg" alt="github-pages-setting" /></p>
+<h3 id="配置-github-免密码登陆"><a class="markdownIt-Anchor" href="#配置-github-免密码登陆"></a> 配置 github 免密码登陆</h3>
 <ul>
 <li>可以参考 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903586380382221">https://juejin.cn/post/6844903586380382221</a></li>
 </ul>
-<h3 id="将博客部署到-github-上-2">将博客部署到 github 上</h3>
+<h3 id="将博客部署到-github-上-2"><a class="markdownIt-Anchor" href="#将博客部署到-github-上-2"></a> 将博客部署到 github 上</h3>
 <p>在站点配置文件 <code>_config.yml</code>，找到 <code>deploy:</code> ，进行以下配置</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: &#x27;git&#x27;</span><br><span class="line">  repo: git@github.com:$&#123;github_id&#125;/$&#123;github_id&#125;.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 <p><strong>注意将 repo 配置中的 ${github_id} 改成自己的 git 账号</strong>，例如我的配置是：git@github.com:Chandson/Chandson.github.io.git。</p>
 <p>之后安装部署工具，推送博客到 github 上</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
-<p>查看 https://${github_id}.github.io 就能看到博客网站了。所以，赶快搞起来吧！</p>
-<h1>搭建进阶</h1>
+<p>查看 <a target="_blank" rel="noopener" href="https://$">https://$</a>{github_id}.github.io 就能看到博客网站了。所以，赶快搞起来吧！</p>
+<h1 id="搭建进阶"><a class="markdownIt-Anchor" href="#搭建进阶"></a> 搭建进阶</h1>
 <ol>
 <li>新建一篇博客：<a target="_blank" rel="noopener" href="https://chandson.github.io/2021/07/10/hello-world/">开始写一篇新的博客</a></li>
 <li>nexT 主题美化官方配置：<a target="_blank" rel="noopener" href="https://theme-next.iissnan.com/getting-started.html">https://theme-next.iissnan.com/getting-started.html</a></li>
@@ -383,7 +383,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">第一次搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-hexo"><span class="nav-number">2.1.</span> <span class="nav-text">安装 hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2-hexo-%E4%B8%BB%E9%A2%98%E4%B8%BA-nexT"><span class="nav-number">2.2.</span> <span class="nav-text">更换 hexo 主题为 nexT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0-github-%E4%B8%8A"><span class="nav-number">2.3.</span> <span class="nav-text">将博客部署到 github 上</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-github-pages"><span class="nav-number">2.3.1.</span> <span class="nav-text">配置 github pages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-github-%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86"><span class="nav-number">2.3.2.</span> <span class="nav-text">配置 github 免密码登陆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0-github-%E4%B8%8A-2"><span class="nav-number">2.3.3.</span> <span class="nav-text">将博客部署到 github 上</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">搭建进阶</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text"> 环境准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text"> 第一次搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-hexo"><span class="nav-number">2.1.</span> <span class="nav-text"> 安装 hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2-hexo-%E4%B8%BB%E9%A2%98%E4%B8%BA-next"><span class="nav-number">2.2.</span> <span class="nav-text"> 更换 hexo 主题为 nexT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0-github-%E4%B8%8A"><span class="nav-number">2.3.</span> <span class="nav-text"> 将博客部署到 github 上</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-github-pages"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 配置 github pages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-github-%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86"><span class="nav-number">2.3.2.</span> <span class="nav-text"> 配置 github 免密码登陆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0-github-%E4%B8%8A-2"><span class="nav-number">2.3.3.</span> <span class="nav-text"> 将博客部署到 github 上</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E8%BF%9B%E9%98%B6"><span class="nav-number">3.</span> <span class="nav-text"> 搭建进阶</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -399,7 +399,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -456,12 +456,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">23k</span>
+    <span title="站点总字数">24k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">21 分钟</span>
+    <span title="站点阅读时长">22 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

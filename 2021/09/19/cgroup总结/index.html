@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="cgroups 简介 cgroups，其名称源自控制组群（control groups）的简写，是Linux内核的一个功能，用来限制、控制与分离一个进程组的资源（如CPU、内存、磁盘输入输出等）。 cgroups 主要功能">
+  <meta name="description" content="cgroups 简介 cgroups，其名称源自控制组群（control groups）的简写，是 Linux 内核的一个功能，用来限制、控制与分离一个进程组的资源（如 CPU、内存、磁盘输入输出等）。  cgroups 主要功能">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cgroups 总结">
 <meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/2021/09/19/cgroup%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Chandson&#39;s Blog">
-<meta property="og:description" content="cgroups 简介 cgroups，其名称源自控制组群（control groups）的简写，是Linux内核的一个功能，用来限制、控制与分离一个进程组的资源（如CPU、内存、磁盘输入输出等）。 cgroups 主要功能">
+<meta property="og:description" content="cgroups 简介 cgroups，其名称源自控制组群（control groups）的简写，是 Linux 内核的一个功能，用来限制、控制与分离一个进程组的资源（如 CPU、内存、磁盘输入输出等）。  cgroups 主要功能">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cpu%E6%9C%AA%E9%99%90%E5%88%B6.png">
 <meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cpu%E7%BB%8F%E8%BF%87cgroup%E9%99%90%E5%88%B6.png">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/%E5%86%85%E5%AD%98%E6%9C%AA%E9%99%90%E5%88%B6.png">
 <meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/%E5%86%85%E5%AD%98cgroup%E9%99%90%E5%88%B6.png">
 <meta property="article:published_time" content="2021-09-18T18:35:33.000Z">
-<meta property="article:modified_time" content="2021-09-19T13:16:30.220Z">
+<meta property="article:modified_time" content="2021-10-01T09:19:07.795Z">
 <meta property="article:author" content="Chandson">
 <meta property="article:tag" content="调度">
 <meta property="article:tag" content="单机">
@@ -205,10 +205,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-09-19 02:35:33 / 修改时间：21:16:30" itemprop="dateCreated datePublished" datetime="2021-09-19T02:35:33+08:00">2021-09-19</time>
+              <time title="创建时间：2021-09-19 02:35:33" itemprop="dateCreated datePublished" datetime="2021-09-19T02:35:33+08:00">2021-09-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-01 17:19:07" itemprop="dateModified" datetime="2021-10-01T17:19:07+08:00">2021-10-01</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -244,9 +250,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>cgroups 简介</h1>
-<p>cgroups，其名称源自控制组群（control groups）的简写，是Linux内核的一个功能，用来限制、控制与分离一个进程组的资源（如CPU、内存、磁盘输入输出等）。</p>
-<h2 id="cgroups-主要功能">cgroups 主要功能</h2>
+        <h1 id="cgroups-简介"><a class="markdownIt-Anchor" href="#cgroups-简介"></a> cgroups 简介</h1>
+<p>cgroups，其名称源自控制组群（control groups）的简写，是 Linux 内核的一个功能，用来限制、控制与分离一个进程组的资源（如 CPU、内存、磁盘输入输出等）。</p>
+<h2 id="cgroups-主要功能"><a class="markdownIt-Anchor" href="#cgroups-主要功能"></a> cgroups 主要功能</h2>
 <ol>
 <li>限制进程组可以使用的资源数量（Resource limiting）。比如：memory 子系统可以为进程组设定一个 memory 使用上限，一旦进程组使用的内存达到限额再申请内存，就会触发 OOM（out of memory）。</li>
 <li>进程组的优先级控制（Prioritization）。比如：可以使用 cpu 子系统为某个进程组分配特定cpu share。</li>
@@ -254,7 +260,7 @@
 <li>进程组隔离（Isolation）。比如：使用 ns 子系统可以使不同的进程组使用不同的 namespace，以达到隔离的目的，不同的进程组有各自的进程、网络、文件系统挂载空间。</li>
 <li>进程组控制（Control）。比如：使用 freezer 子系统可以将进程组挂起和恢复。</li>
 </ol>
-<h2 id="cgroup-子系统">cgroup 子系统</h2>
+<h2 id="cgroup-子系统"><a class="markdownIt-Anchor" href="#cgroup-子系统"></a> cgroup 子系统</h2>
 <ol>
 <li>cpu 子系统，主要限制进程的 cpu 使用率。</li>
 <li>cpuacct 子系统，可以统计 cgroups 中的进程的 cpu 使用报告。</li>
@@ -267,32 +273,32 @@
 <li>ns 子系统，可以使不同 cgroups 下面的进程使用不同的 namespace。</li>
 </ol>
 <p><strong>下面重点介绍几个常用的子系统</strong></p>
-<h3 id="cpu，cpuacct-子系统">cpu，cpuacct 子系统</h3>
+<h3 id="cpucpuacct-子系统"><a class="markdownIt-Anchor" href="#cpucpuacct-子系统"></a> cpu，cpuacct 子系统</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpu,cpuacct# ls -l | awk &#x27;&#123;print $9&#125;&#x27;</span><br><span class="line"></span><br><span class="line">cgroup.clone_children</span><br><span class="line">cgroup.procs # 当前 cgroup 中的所有进程 ID，系统不保证 ID 是顺序排列的，且 ID 有可能重复</span><br><span class="line">cgroup.sane_behavior</span><br><span class="line">cpuacct.stat</span><br><span class="line">cpuacct.usage # 记录这​​​个​​ ​cgroup 中​​​所​​​有​​​任​​​务​​​（包括其子孙层级中的所有任务）消​​​耗​​​的​​​总 ​​​CPU 时​​​间​​​（纳​​​秒​​​）。</span><br><span class="line">cpuacct.usage_all</span><br><span class="line">cpuacct.usage_percpu # 记录​​​这​​​个 ​​​cgroup 中​​​所​​​有​​​任​​​务​​​（包括其子孙层级中的所有任务​​​）在​​​每​​​个 ​​​CPU 中​​​消​​​耗​​​的 ​​​CPU 时​​​间​​​（以​​​纳​​​秒​​​为​​​单​​​位​​​）。</span><br><span class="line">cpuacct.usage_percpu_sys</span><br><span class="line">cpuacct.usage_percpu_user</span><br><span class="line">cpuacct.usage_sys</span><br><span class="line">cpuacct.usage_user</span><br><span class="line">cpu.cfs_period_us # 用来配置时间周期长度，取值范围为1毫秒（ms）到1秒（s）</span><br><span class="line">cpu.cfs_quota_us # 用来配置当前 cgroup 在设置的周期长度内所能使用的 CPU 时间数，和 cpu.cfs_period_us 配合起来设置 CPU 的使用上限</span><br><span class="line">cpu.shares # 用来设置 CPU 的相对值，并且是针对所有的 CPU（内核），默认值是1024</span><br><span class="line">cpu.stat</span><br><span class="line">notify_on_release</span><br><span class="line">release_agent</span><br><span class="line">system.slice</span><br><span class="line">tasks # 当前 cgroup 中的所有线程 ID，系统不保证 ID 是顺序排列的</span><br><span class="line">user.slice</span><br></pre></td></tr></table></figure>
-<h3 id="cpuset-子系统">cpuset 子系统</h3>
+<h3 id="cpuset-子系统"><a class="markdownIt-Anchor" href="#cpuset-子系统"></a> cpuset 子系统</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpuset# ls -l | awk &#x27;&#123;print $9&#125;&#x27;</span><br><span class="line"></span><br><span class="line">cgroup.clone_children</span><br><span class="line">cgroup.procs</span><br><span class="line">cgroup.sane_behavior</span><br><span class="line">cpuset.cpu_exclusive</span><br><span class="line">cpuset.cpus # 设定该 cgroup 任务可以访问的 CPU</span><br><span class="line">cpuset.effective_cpus # 显示实际进程可以使用的 cpu</span><br><span class="line">cpuset.effective_mems # 显示实际进程可以使用的 mem</span><br><span class="line">cpuset.mem_exclusive</span><br><span class="line">cpuset.mem_hardwall</span><br><span class="line">cpuset.memory_migrate</span><br><span class="line">cpuset.memory_pressure</span><br><span class="line">cpuset.memory_pressure_enabled</span><br><span class="line">cpuset.memory_spread_page</span><br><span class="line">cpuset.memory_spread_slab</span><br><span class="line">cpuset.mems # 设定该 cgroup 中任务可以访问的内存节点</span><br><span class="line">cpuset.sched_load_balance</span><br><span class="line">cpuset.sched_relax_domain_level</span><br><span class="line">notify_on_release</span><br><span class="line">release_agent</span><br><span class="line">tasks</span><br></pre></td></tr></table></figure>
-<h3 id="memory-子系统">memory 子系统</h3>
+<h3 id="memory-子系统"><a class="markdownIt-Anchor" href="#memory-子系统"></a> memory 子系统</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">root@linyouquan-test:/sys/fs/cgroup/memory# ls -l | awk &#x27;&#123;print $9&#125;&#x27;</span><br><span class="line"></span><br><span class="line">cgroup.clone_children</span><br><span class="line">cgroup.event_control</span><br><span class="line">cgroup.procs</span><br><span class="line">cgroup.sane_behavior</span><br><span class="line">memory.failcnt</span><br><span class="line">memory.force_empty</span><br><span class="line">memory.kmem.failcnt</span><br><span class="line">memory.kmem.limit_in_bytes</span><br><span class="line">memory.kmem.max_usage_in_bytes</span><br><span class="line">memory.kmem.slabinfo</span><br><span class="line">memory.kmem.tcp.failcnt</span><br><span class="line">memory.kmem.tcp.limit_in_bytes</span><br><span class="line">memory.kmem.tcp.max_usage_in_bytes</span><br><span class="line">memory.kmem.tcp.usage_in_bytes</span><br><span class="line">memory.kmem.usage_in_bytes</span><br><span class="line">memory.limit_in_bytes # 设定用户内存（包括文件缓存）的最大用量。</span><br><span class="line">memory.max_usage_in_bytes # 报告 cgroup 中进程所用的最大内存量（以字节为单位）</span><br><span class="line">memory.move_charge_at_immigrate</span><br><span class="line">memory.numa_stat</span><br><span class="line">memory.oom_control</span><br><span class="line">memory.pressure_level</span><br><span class="line">memory.soft_limit_in_bytes # hard limit 是一个硬性标准，绝对不能超过这个值，而 soft limit 可以被超越</span><br><span class="line">memory.stat # 报告大范围内存统计</span><br><span class="line">memory.swappiness</span><br><span class="line">memory.usage_in_bytes</span><br><span class="line">memory.use_hierarchy</span><br><span class="line">notify_on_release</span><br><span class="line">release_agent</span><br><span class="line">system.slice</span><br><span class="line">tasks</span><br><span class="line">user.slice</span><br></pre></td></tr></table></figure>
-<h1>安装 cgroups</h1>
+<h1 id="安装-cgroups"><a class="markdownIt-Anchor" href="#安装-cgroups"></a> 安装 cgroups</h1>
 <p>本文测试环境基于 Ubuntu 18.04.5，系统自带 cgroups。Linux 把 cgroups 实现成了一个 file system，输入以下命令可以看到 cgroup 已经 mount 好了。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">linyouquan@linyouquan-test:/sys/fs/cgroup$ mount -t cgroup</span><br><span class="line">cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,name=systemd)</span><br><span class="line">cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,cpu,cpuacct)</span><br><span class="line">cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,pids)</span><br><span class="line">cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,net_cls,net_prio)</span><br><span class="line">cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,blkio)</span><br><span class="line">cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset)</span><br><span class="line">cgroup on /sys/fs/cgroup/rdma type cgroup (rw,nosuid,nodev,noexec,relatime,rdma)</span><br><span class="line">cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,hugetlb)</span><br><span class="line">cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,memory)</span><br><span class="line">cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,devices)</span><br><span class="line">cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,perf_event)</span><br><span class="line">cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,freezer)</span><br></pre></td></tr></table></figure>
 <p>或者使用<code>lssubsys</code>命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">linyouquan@linyouquan-test:/sys/fs/cgroup$ lssubsys  -m</span><br><span class="line">cpuset /sys/fs/cgroup/cpuset</span><br><span class="line">cpu,cpuacct /sys/fs/cgroup/cpu,cpuacct</span><br><span class="line">blkio /sys/fs/cgroup/blkio</span><br><span class="line">memory /sys/fs/cgroup/memory</span><br><span class="line">devices /sys/fs/cgroup/devices</span><br><span class="line">freezer /sys/fs/cgroup/freezer</span><br><span class="line">net_cls,net_prio /sys/fs/cgroup/net_cls,net_prio</span><br><span class="line">perf_event /sys/fs/cgroup/perf_event</span><br><span class="line">hugetlb /sys/fs/cgroup/hugetlb</span><br><span class="line">pids /sys/fs/cgroup/pids</span><br><span class="line">rdma /sys/fs/cgroup/rdma</span><br></pre></td></tr></table></figure>
-<h1>cgroups 使用</h1>
+<h1 id="cgroups-使用"><a class="markdownIt-Anchor" href="#cgroups-使用"></a> cgroups 使用</h1>
 <p>因为 hadoop yarn 系统主要是针对 cpu 和内存进行调度，所以这里我主要学习 cgroups 关于 cpu，内存的一些用法，至于 blkio 和 net_cls 等，我们就不具体展开。下面是具体实验过程。</p>
-<h2 id="cpu">cpu</h2>
-<h3 id="cpu-限制">cpu 限制</h3>
+<h2 id="cpu"><a class="markdownIt-Anchor" href="#cpu"></a> cpu</h2>
+<h3 id="cpu-限制"><a class="markdownIt-Anchor" href="#cpu-限制"></a> cpu 限制</h3>
 <ul>
 <li>限制前<code>stress</code>命令可以用到100%的 cpu（tips：进入 top 页面按1，即可查看 cpu 每个核的用量）</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">linyouquan@linyouquan-test:~/test/cgroup$ stress -c 1</span><br></pre></td></tr></table></figure>
-<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cpu%E6%9C%AA%E9%99%90%E5%88%B6.png" alt=""></p>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cpu%E6%9C%AA%E9%99%90%E5%88%B6.png" alt="" /></p>
 <ul>
 <li>限制后<code>stress</code>命令只能用到50%的 cpu</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpu# mkdir test_cgroup</span><br><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpu# echo 100000 &gt; test_cgroup/cpu.cfs_period_us</span><br><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpu# echo 50000 &gt; test_cgroup/cpu.cfs_quota_us</span><br><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpu# echo 2294 &gt; test_cgroup/cgroup.procs</span><br></pre></td></tr></table></figure>
-<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cpu%E7%BB%8F%E8%BF%87cgroup%E9%99%90%E5%88%B6.png" alt=""></p>
-<h3 id="cpu-绑核">cpu 绑核</h3>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cpu%E7%BB%8F%E8%BF%87cgroup%E9%99%90%E5%88%B6.png" alt="" /></p>
+<h3 id="cpu-绑核"><a class="markdownIt-Anchor" href="#cpu-绑核"></a> cpu 绑核</h3>
 <ul>
 <li>测试的工具我们改成了<code>sysbench</code>，因为<code>stress</code>是基于多进程的工具，压测过程会产生多个 pid，不方便我们测试，而<code>sysbench</code>是基于多线程，只有一个 pid。</li>
 <li>绑核前查看 cpu 信息</li>
@@ -302,19 +308,19 @@
 <li>开始 cpu 压测，发现<code>sysbench</code>把4个 cpu 核都用满了</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">linyouquan@linyouquan-test:~$ sysbench --test=cpu --cpu-max-prime=2000000000 --threads=8 run</span><br></pre></td></tr></table></figure>
-<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/sysbench%E7%94%A8%E6%BB%A1cpu.png" alt=""></p>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/sysbench%E7%94%A8%E6%BB%A1cpu.png" alt="" /></p>
 <ul>
 <li>把<code>sysbench</code>进程绑定到2号核上，最终看到<code>sysbench</code>只用到了2号核</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpuset# mkdir test</span><br><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpuset# cd test/</span><br><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpuset/test# echo 2 &gt; cpuset.cpus</span><br><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpuset/test# echo 0 &gt; cpuset.mems</span><br><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpuset/test# echo 2377 &gt; cgroup.procs</span><br></pre></td></tr></table></figure>
-<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/20210919210100-cpu%E7%BB%91%E6%A0%B8.png" alt=""></p>
-<h2 id="内存">内存</h2>
-<h3 id="内存限制">内存限制</h3>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/20210919210100-cpu%E7%BB%91%E6%A0%B8.png" alt="" /></p>
+<h2 id="内存"><a class="markdownIt-Anchor" href="#内存"></a> 内存</h2>
+<h3 id="内存限制"><a class="markdownIt-Anchor" href="#内存限制"></a> 内存限制</h3>
 <ul>
 <li>限制前<code>stress</code>命令正常运行</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">linyouquan@linyouquan-test:~/test/cgroup$ stress --vm 1 --vm-bytes 256M</span><br><span class="line">stress: info: [2452] dispatching hogs: 0 cpu, 0 io, 1 vm, 0 hdd</span><br></pre></td></tr></table></figure>
-<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/%E5%86%85%E5%AD%98%E6%9C%AA%E9%99%90%E5%88%B6.png" alt=""></p>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/%E5%86%85%E5%AD%98%E6%9C%AA%E9%99%90%E5%88%B6.png" alt="" /></p>
 <ul>
 <li>开始限制</li>
 </ul>
@@ -323,11 +329,11 @@
 <li>限制后<code>stress</code>命令因为 OOM 退出</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">linyouquan@linyouquan-test:~/test/cgroup$ stress --vm 1 --vm-bytes 256M</span><br><span class="line">stress: info: [2452] dispatching hogs: 0 cpu, 0 io, 1 vm, 0 hdd</span><br><span class="line">stress: FAIL: [2452] (415) &lt;-- worker 2453 got signal 9</span><br><span class="line">stress: WARN: [2452] (417) now reaping child worker processes</span><br><span class="line">stress: FAIL: [2452] (451) failed run completed in 143s</span><br></pre></td></tr></table></figure>
-<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/%E5%86%85%E5%AD%98cgroup%E9%99%90%E5%88%B6.png" alt=""></p>
-<h2 id="查看进程使用了哪些-cgroup">查看进程使用了哪些 cgroup</h2>
-<p>eg：进程 1806 在 cpu,cpuacct 子系统绑定了 test 目录</p>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/%E5%86%85%E5%AD%98cgroup%E9%99%90%E5%88%B6.png" alt="" /></p>
+<h2 id="查看进程使用了哪些-cgroup"><a class="markdownIt-Anchor" href="#查看进程使用了哪些-cgroup"></a> 查看进程使用了哪些 cgroup</h2>
+<p>eg：进程1806在 cpu,cpuacct 子系统绑定了 test 目录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@linyouquan-test:/sys/fs/cgroup/cpu/test# cat /proc/1806/cgroup</span><br><span class="line">12:freezer:/</span><br><span class="line">11:perf_event:/</span><br><span class="line">10:devices:/user.slice</span><br><span class="line">9:memory:/user.slice</span><br><span class="line">8:hugetlb:/</span><br><span class="line">7:rdma:/</span><br><span class="line">6:cpuset:/</span><br><span class="line">5:blkio:/user.slice</span><br><span class="line">4:net_cls,net_prio:/</span><br><span class="line">3:pids:/user.slice/user-1000.slice/session-6.scope</span><br><span class="line">2:cpu,cpuacct:/test</span><br><span class="line">1:name=systemd:/user.slice/user-1000.slice/session-6.scope</span><br><span class="line">0::/user.slice/user-1000.slice/session-6.scope</span><br></pre></td></tr></table></figure>
-<h1>参考</h1>
+<h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Cgroup/4988200">https://baike.baidu.com/item/Cgroup/4988200</a></li>
 <li><a target="_blank" rel="noopener" href="https://tech.meituan.com/2015/03/31/cgroups.html">https://tech.meituan.com/2015/03/31/cgroups.html</a></li>
@@ -356,7 +362,10 @@
     <a href="/2021/09/12/plantUML%E7%BB%98%E5%9B%BE/" rel="prev" title="plantUML 绘图">
       <i class="fa fa-chevron-left"></i> plantUML 绘图
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/02/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9B%B8%E4%BA%92ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/" rel="next" title="虚拟机相互ssh免密码登陆">
+      虚拟机相互ssh免密码登陆 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -416,7 +425,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">cgroups 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cgroups-%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.</span> <span class="nav-text">cgroups 主要功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cgroup-%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.</span> <span class="nav-text">cgroup 子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cpu%EF%BC%8Ccpuacct-%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text">cpu，cpuacct 子系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cpuset-%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text">cpuset 子系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.3.</span> <span class="nav-text">memory 子系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">安装 cgroups</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">cgroups 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cpu"><span class="nav-number">3.1.</span> <span class="nav-text">cpu</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cpu-%E9%99%90%E5%88%B6"><span class="nav-number">3.1.1.</span> <span class="nav-text">cpu 限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cpu-%E7%BB%91%E6%A0%B8"><span class="nav-number">3.1.2.</span> <span class="nav-text">cpu 绑核</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-number">3.2.</span> <span class="nav-text">内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E9%99%90%E5%88%B6"><span class="nav-number">3.2.1.</span> <span class="nav-text">内存限制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B-cgroup"><span class="nav-number">3.3.</span> <span class="nav-text">查看进程使用了哪些 cgroup</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cgroups-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text"> cgroups 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cgroups-%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.</span> <span class="nav-text"> cgroups 主要功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cgroup-%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.</span> <span class="nav-text"> cgroup 子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cpucpuacct-%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text"> cpu，cpuacct 子系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cpuset-%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text"> cpuset 子系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.3.</span> <span class="nav-text"> memory 子系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-cgroups"><span class="nav-number">2.</span> <span class="nav-text"> 安装 cgroups</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cgroups-%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text"> cgroups 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cpu"><span class="nav-number">3.1.</span> <span class="nav-text"> cpu</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cpu-%E9%99%90%E5%88%B6"><span class="nav-number">3.1.1.</span> <span class="nav-text"> cpu 限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cpu-%E7%BB%91%E6%A0%B8"><span class="nav-number">3.1.2.</span> <span class="nav-text"> cpu 绑核</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-number">3.2.</span> <span class="nav-text"> 内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E9%99%90%E5%88%B6"><span class="nav-number">3.2.1.</span> <span class="nav-text"> 内存限制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B-cgroup"><span class="nav-number">3.3.</span> <span class="nav-text"> 查看进程使用了哪些 cgroup</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text"> 参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -432,7 +441,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -489,12 +498,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">23k</span>
+    <span title="站点总字数">24k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">21 分钟</span>
+    <span title="站点阅读时长">22 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

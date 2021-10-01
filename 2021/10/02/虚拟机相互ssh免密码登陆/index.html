@@ -23,15 +23,22 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Chandson&#39;s Blog">
-<meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/index.html">
+  <meta name="description" content="前言 最近使用 virtualbox 搭建 k8s 集群，节点信息如下    ip hostname     192.168.99.13 linyouquan-master   192.168.99.14 linyouquan-worker1   192.168.99.15 linyouquan-worker2   192.168.99.16 linyouquan-test">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟机相互ssh免密码登陆">
+<meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/2021/10/02/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9B%B8%E4%BA%92ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/index.html">
 <meta property="og:site_name" content="Chandson&#39;s Blog">
+<meta property="og:description" content="前言 最近使用 virtualbox 搭建 k8s 集群，节点信息如下    ip hostname     192.168.99.13 linyouquan-master   192.168.99.14 linyouquan-worker1   192.168.99.15 linyouquan-worker2   192.168.99.16 linyouquan-test">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86.png">
+<meta property="article:published_time" content="2021-10-01T20:12:22.000Z">
+<meta property="article:modified_time" content="2021-10-01T21:59:03.108Z">
 <meta property="article:author" content="Chandson">
+<meta property="article:tag" content="单机">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86.png">
 
-<link rel="canonical" href="https://github.com/Chandson/Chandson.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+<link rel="canonical" href="https://github.com/Chandson/Chandson.github.io/2021/10/02/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9B%B8%E4%BA%92ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/">
 
 
 <script id="page-configurations">
@@ -39,12 +46,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: 软件工程 | Chandson's Blog</title>
+  <title>虚拟机相互ssh免密码登陆 | Chandson's Blog</title>
   
 
 
@@ -163,77 +170,152 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">软件工程
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Chandson/Chandson.github.io/2021/10/02/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9B%B8%E4%BA%92ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.jpg">
+      <meta itemprop="name" content="Chandson">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chandson's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          虚拟机相互ssh免密码登陆
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-10-02 04:12:22 / 修改时间：05:59:03" itemprop="dateCreated datePublished" datetime="2021-10-02T04:12:22+08:00">2021-10-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8D%95%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">单机</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>860</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+        <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>最近使用 virtualbox 搭建 k8s 集群，节点信息如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ip</th>
+<th style="text-align:left">hostname</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">192.168.99.13</td>
+<td style="text-align:left">linyouquan-master</td>
+</tr>
+<tr>
+<td style="text-align:left">192.168.99.14</td>
+<td style="text-align:left">linyouquan-worker1</td>
+</tr>
+<tr>
+<td style="text-align:left">192.168.99.15</td>
+<td style="text-align:left">linyouquan-worker2</td>
+</tr>
+<tr>
+<td style="text-align:left">192.168.99.16</td>
+<td style="text-align:left">linyouquan-test</td>
+</tr>
+</tbody>
+</table>
+<p>后续除了用于 k8s 集群，还可以作为其他环境，例如 hdfs/yarn 等。平时各种实验可能要求在服务器之间不断穿梭，所以便产生了虚拟机相互 ssh 免密码登陆这个需求。</p>
+<h1 id="过程"><a class="markdownIt-Anchor" href="#过程"></a> 过程</h1>
+<ul>
+<li>linyouquan-test 机器上 ssh-keygen，然后执行 ssh-copy-id 将公钥添加到其他服务器</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id linyouquan@linyouquan-master</span><br><span class="line">ssh-copy-id linyouquan@linyouquan-worker1</span><br><span class="line">ssh-copy-id linyouquan@linyouquan-worker2</span><br></pre></td></tr></table></figure>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86.png" alt="" /></p>
+<ul>
+<li>因为要求4台虚拟机之间能相互 ssh，可以重复4次以上步骤，不过我选择的是：在 linyouquan-test 机器把自己的公钥加到自己的 authorized_keys，然后4台机器使用相同的公私钥和 authorized_keys（这么做不安全，不过是自己的测试环境就无所谓了）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.13:/home/linyouquan/</span><br><span class="line">linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.14:/home/linyouquan/</span><br><span class="line">linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.15:/home/linyouquan/</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Nurbiya_K/article/details/102962763">https://blog.csdn.net/Nurbiya_K/article/details/102962763</a></li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-12T00:58:23+08:00"
-              content="2021-09-12">
-          09-12
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%95%E6%9C%BA/" rel="tag"># 单机</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/12/plantUML%E7%BB%98%E5%9B%BE/" itemprop="url">
-            <span itemprop="name">plantUML 绘图</span>
-          </a>
-      </div>
+        
 
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-07T13:49:30+08:00"
-              content="2021-08-07">
-          08-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/07/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/" itemprop="url">
-            <span itemprop="name">敏捷开发</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/19/cgroup%E6%80%BB%E7%BB%93/" rel="prev" title="cgroups 总结">
+      <i class="fa fa-chevron-left"></i> cgroups 总结
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
-  
-
   
 
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -280,6 +362,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text"> 过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text"> 参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -417,6 +500,25 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'db98a04ea7d940c04260',
+      clientSecret: '6b894689b00cbaf58abc37aa91663de495c344bf',
+      repo        : 'Chandson.github.io',
+      owner       : 'Chandson',
+      admin       : ['Chandson'],
+      id          : '2e39d4619607e76e5738b6df27ef39b8',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>
