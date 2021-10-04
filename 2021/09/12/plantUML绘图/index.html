@@ -226,7 +226,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -261,7 +261,25 @@
 </li>
 <li>使用 plantUML 绘画类图的一个例子</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">title plantUML 绘画类图</span><br><span class="line">package &quot;class UML 类图&quot; &lt;&lt;Frame&gt;&gt; &#123;</span><br><span class="line">abstract class 车</span><br><span class="line">小汽车 -up.|&gt; 车 : 实现</span><br><span class="line">自行车 -up.|&gt; 车 : 实现</span><br><span class="line">小汽车 -[hidden]right-&gt; 自行车</span><br><span class="line">小汽车 &lt;|-- SUV : 继承</span><br><span class="line">轮胎 -right-* 小汽车 : 组合</span><br><span class="line">发动机 -right-* 小汽车 : 组合</span><br><span class="line">轮胎 -[hidden]right-&gt; 发动机</span><br><span class="line">发动机 -[hidden]right-&gt; 小汽车</span><br><span class="line">轮胎 -[hidden]up-&gt; 车</span><br><span class="line">学生 -left.&gt; 自行车 : 依赖</span><br><span class="line">学生 -right-o 班级 : 聚合</span><br><span class="line">学生 -down-&gt; 身份证 : 关联</span><br><span class="line">&#125;</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">@startuml
+title plantUML 绘画类图
+package &quot;class UML 类图&quot; &lt;&lt;Frame&gt;&gt; &#123;
+abstract class 车
+小汽车 -up.|&gt; 车 : 实现
+自行车 -up.|&gt; 车 : 实现
+小汽车 -[hidden]right-&gt; 自行车
+小汽车 &lt;|-- SUV : 继承
+轮胎 -right-* 小汽车 : 组合
+发动机 -right-* 小汽车 : 组合
+轮胎 -[hidden]right-&gt; 发动机
+发动机 -[hidden]right-&gt; 小汽车
+轮胎 -[hidden]up-&gt; 车
+学生 -left.&gt; 自行车 : 依赖
+学生 -right-o 班级 : 聚合
+学生 -down-&gt; 身份证 : 关联
+&#125;
+@enduml
+</code></pre>
 <p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E7%B1%BB%E5%9B%BE.png" alt="" /></p>
 <h2 id="流程图"><a class="markdownIt-Anchor" href="#流程图"></a> 流程图</h2>
 <ul>
@@ -284,7 +302,41 @@
 </li>
 <li>使用 plantUML 绘画时序图的一个例子</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">title 用户查询银行账号余额</span><br><span class="line">skinparam responseMessageBelowArrow true</span><br><span class="line">actor User</span><br><span class="line">participant &quot;App&quot; as A</span><br><span class="line">participant &quot;Auth Server&quot; as B</span><br><span class="line">participant &quot;Bank Server&quot; as C</span><br><span class="line"></span><br><span class="line">User -&gt; A: login</span><br><span class="line">activate A</span><br><span class="line"></span><br><span class="line">A -&gt; B: verify pwd</span><br><span class="line">activate B</span><br><span class="line"></span><br><span class="line">Alt if pwd is vaild</span><br><span class="line">  B --&gt; A: return JWT</span><br><span class="line">  A --&gt; User: return OK</span><br><span class="line">else else</span><br><span class="line">  B --&gt; A: failed</span><br><span class="line">  deactivate B</span><br><span class="line">  A --&gt; User: return Invaild</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">User -&gt; A: check balance</span><br><span class="line"></span><br><span class="line">A -&gt; C: query balance</span><br><span class="line">activate C</span><br><span class="line">C --&gt; A: return balance</span><br><span class="line">deactivate C</span><br><span class="line"></span><br><span class="line">A --&gt; User: return balance</span><br><span class="line">deactivate A</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">@startuml
+title 用户查询银行账号余额
+skinparam responseMessageBelowArrow true
+actor User
+participant &quot;App&quot; as A
+participant &quot;Auth Server&quot; as B
+participant &quot;Bank Server&quot; as C
+
+User -&gt; A: login
+activate A
+
+A -&gt; B: verify pwd
+activate B
+
+Alt if pwd is vaild
+  B --&gt; A: return JWT
+  A --&gt; User: return OK
+else else
+  B --&gt; A: failed
+  deactivate B
+  A --&gt; User: return Invaild
+end
+
+User -&gt; A: check balance
+
+A -&gt; C: query balance
+activate C
+C --&gt; A: return balance
+deactivate C
+
+A --&gt; User: return balance
+deactivate A
+
+@enduml
+</code></pre>
 <p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/UML%E6%97%B6%E5%BA%8F%E5%9B%BE.png" alt="" /></p>
 <h1 id="常见绘画工具"><a class="markdownIt-Anchor" href="#常见绘画工具"></a> 常见绘画工具</h1>
 <ul>
@@ -459,12 +511,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">29k</span>
+    <span title="站点总字数">28k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">26 分钟</span>
+    <span title="站点阅读时长">25 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
@@ -543,6 +595,16 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
   }, window.Gitalk);
 });
 </script>
+
+  <link rel="stylesheet" href="/js/google-code-prettify/skins/atelier-forest-light.min.css" type="text/css">
+<script src="/js/google-code-prettify/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+      prettyPrint();
+  });
+</script>
+
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>

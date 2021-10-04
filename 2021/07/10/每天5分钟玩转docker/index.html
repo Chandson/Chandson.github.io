@@ -224,7 +224,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
+              <span>4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -249,7 +249,9 @@
 <li>书籍购买：<a target="_blank" rel="noopener" href="https://item.jd.com/12200103.html">https://item.jd.com/12200103.html</a></li>
 </ul>
 <h2 id="第三章-docker-镜像"><a class="markdownIt-Anchor" href="#第三章-docker-镜像"></a> 第三章 docker 镜像</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker info: 查看 docker 服务器的信息</span><br><span class="line">docker images / docker image ls</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker info: 查看 docker 服务器的信息
+docker images / docker image ls
+</code></pre>
 <h3 id="镜像的内部结构"><a class="markdownIt-Anchor" href="#镜像的内部结构"></a> 镜像的内部结构</h3>
 <h4 id="base-镜像"><a class="markdownIt-Anchor" href="#base-镜像"></a> base 镜像</h4>
 <ul>
@@ -262,19 +264,50 @@
 <li>容器层记录对镜像的修改，所有镜像层都是只读的，不会被容器修改，所以镜像可以被多个容器共享</li>
 </ul>
 <h3 id="构建镜像"><a class="markdownIt-Anchor" href="#构建镜像"></a> 构建镜像</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker commit</span><br><span class="line">Dockerfile: docker build -t ubuntu-with-vim-dockerfile .</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker commit
+Dockerfile: docker build -t ubuntu-with-vim-dockerfile .
+</code></pre>
 <h4 id="查看镜像分层结构"><a class="markdownIt-Anchor" href="#查看镜像分层结构"></a> 查看镜像分层结构</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Docker history</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">Docker history
+</code></pre>
 <h4 id="dockerfile-常用指令"><a class="markdownIt-Anchor" href="#dockerfile-常用指令"></a> Dockerfile 常用指令</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FROM</span><br><span class="line">MAINTAINER</span><br><span class="line">COPY</span><br><span class="line">ADD：会自动解压</span><br><span class="line">ENV</span><br><span class="line">EXPOSE</span><br><span class="line">VOLUME</span><br><span class="line">RUN</span><br><span class="line">CMD</span><br><span class="line">ENTRYPOINT</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">FROM
+MAINTAINER
+COPY
+ADD：会自动解压
+ENV
+EXPOSE
+VOLUME
+RUN
+CMD
+ENTRYPOINT
+</code></pre>
 <h4 id="最佳实践-p45"><a class="markdownIt-Anchor" href="#最佳实践-p45"></a> 最佳实践 P45</h4>
 <h3 id="更多-docker-命令"><a class="markdownIt-Anchor" href="#更多-docker-命令"></a> 更多 docker 命令</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">images</span><br><span class="line">history</span><br><span class="line">commit</span><br><span class="line">build</span><br><span class="line">tag</span><br><span class="line">pull</span><br><span class="line">push</span><br><span class="line">rmi</span><br><span class="line">Search</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">images
+history
+commit
+build
+tag
+pull
+push
+rmi
+Search
+</code></pre>
 <h2 id="第四章-docker-容器"><a class="markdownIt-Anchor" href="#第四章-docker-容器"></a> 第四章 docker 容器</h2>
 <h3 id="运行容器"><a class="markdownIt-Anchor" href="#运行容器"></a> 运行容器</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker create 基于镜像创建容器</span><br><span class="line">docker start</span><br><span class="line"></span><br><span class="line">docker run -it （=create+start）</span><br><span class="line">-d 参数在后台启动容器</span><br><span class="line">docker attach &amp;&amp; docker exec（推荐 exec）</span><br><span class="line">docker logs</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker create 基于镜像创建容器
+docker start
+
+docker run -it （=create+start）
+-d 参数在后台启动容器
+docker attach &amp;&amp; docker exec（推荐 exec）
+docker logs
+</code></pre>
 <h3 id="stopstartrestartkill-容器"><a class="markdownIt-Anchor" href="#stopstartrestartkill-容器"></a> stop/start/restart/kill 容器</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--restart=always</span><br><span class="line">--restart=on-failure:3</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">--restart=always
+--restart=on-failure:3
+</code></pre>
 <h3 id="pauseunpause-容器"><a class="markdownIt-Anchor" href="#pauseunpause-容器"></a> pause/unpause 容器</h3>
 <h3 id="rm-容器"><a class="markdownIt-Anchor" href="#rm-容器"></a> rm 容器</h3>
 <ul>
@@ -282,9 +315,13 @@
 </ul>
 <h3 id="资源限制"><a class="markdownIt-Anchor" href="#资源限制"></a> 资源限制</h3>
 <h4 id="内存限制"><a class="markdownIt-Anchor" href="#内存限制"></a> 内存限制</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -m 200M --memory-swap=300M progrium/stress --vm 1 --vm-bytes 280M</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker run -m 200M --memory-swap=300M progrium/stress --vm 1 --vm-bytes 280M
+</code></pre>
 <h4 id="cpu-限额"><a class="markdownIt-Anchor" href="#cpu-限额"></a> cpu 限额</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --name container_A -it -c 1024 progrium/stress --cpu 1</span><br><span class="line">docker run --name container_B -it -c 512 progrium/stress --cpu 1</span><br><span class="line">docker-machine ssh default</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker run --name container_A -it -c 1024 progrium/stress --cpu 1
+docker run --name container_B -it -c 512 progrium/stress --cpu 1
+docker-machine ssh default
+</code></pre>
 <h4 id="block-io-带宽限额-p68"><a class="markdownIt-Anchor" href="#block-io-带宽限额-p68"></a> block IO 带宽限额 P68</h4>
 <ul>
 <li>block IO 权重</li>
@@ -294,7 +331,10 @@
 <ul>
 <li>cgroup 实现资源限额</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls /sys/fs/cgroup/cpu</span><br><span class="line">ls /sys/fs/cgroup/memory</span><br><span class="line">ls /sys/fs/cgroup/blkio</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">ls /sys/fs/cgroup/cpu
+ls /sys/fs/cgroup/memory
+ls /sys/fs/cgroup/blkio
+</code></pre>
 <ul>
 <li>
 <p>namespace 实现6种资源隔离</p>
@@ -309,16 +349,25 @@
 </li>
 </ul>
 <h2 id="第五章-网络"><a class="markdownIt-Anchor" href="#第五章-网络"></a> 第五章 网络</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br><span class="line">docker run -it --network=none centos-with-net-tools</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker network ls
+docker run -it --network=none centos-with-net-tools
+</code></pre>
 <h3 id="host-网络"><a class="markdownIt-Anchor" href="#host-网络"></a> host 网络</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --network=host centos-with-net-tools</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker run -it --network=host centos-with-net-tools
+</code></pre>
 <ul>
 <li>共享 docker host 的网络栈，存在端口冲突问题</li>
 </ul>
 <h3 id="bridge-网络"><a class="markdownIt-Anchor" href="#bridge-网络"></a> Bridge 网络</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brctl show</span><br><span class="line">docker network inspect bridge</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">brctl show
+docker network inspect bridge
+</code></pre>
 <h3 id="user-defined-网络"><a class="markdownIt-Anchor" href="#user-defined-网络"></a> user-defined 网络</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker network create --driver bridge my_net</span><br><span class="line">docker network create --driver bridge --subnet 172.22.16.0/24 --gateway 172.22.16.1 my_net2</span><br><span class="line">docker run  -it --network=my_net2 --ip 172.22.16.18 centos-with-net-tools /bin/bash</span><br><span class="line">docker connect my_net2 xxxxxx</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker network create --driver bridge my_net
+docker network create --driver bridge --subnet 172.22.16.0/24 --gateway 172.22.16.1 my_net2
+docker run  -it --network=my_net2 --ip 172.22.16.18 centos-with-net-tools /bin/bash
+docker connect my_net2 xxxxxx
+</code></pre>
 <h3 id="容器间通信"><a class="markdownIt-Anchor" href="#容器间通信"></a> 容器间通信</h3>
 <ul>
 <li>Host 网络: 容器对外网的访问(NAT)</li>
@@ -341,16 +390,21 @@
 </li>
 <li>docker managed volume</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker volume ls</span><br><span class="line">docker volume inspect xxxxxx</span><br><span class="line">docker run  -it -p 80:80 -v /testbylinyouquan centos-with-net-tools /bin/bash</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker volume ls
+docker volume inspect xxxxxx
+docker run  -it -p 80:80 -v /testbylinyouquan centos-with-net-tools /bin/bash
+</code></pre>
 <h3 id="数据共享"><a class="markdownIt-Anchor" href="#数据共享"></a> 数据共享</h3>
 <h4 id="容器与-host-共享数据"><a class="markdownIt-Anchor" href="#容器与-host-共享数据"></a> 容器与 host 共享数据</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker cp
+</code></pre>
 <h4 id="容器之间共享数据"><a class="markdownIt-Anchor" href="#容器之间共享数据"></a> 容器之间共享数据</h4>
 <ul>
 <li>共享数据放在 bind mount 中，然后将其 mount 到多个容器</li>
 </ul>
 <h3 id="volume-container-p101"><a class="markdownIt-Anchor" href="#volume-container-p101"></a> volume container P101</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--volumes-from</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">--volumes-from
+</code></pre>
 <h3 id="data-packed-volume-container-p102"><a class="markdownIt-Anchor" href="#data-packed-volume-container-p102"></a> data-packed volume container P102</h3>
 <h3 id="data-volume-生命周期管理"><a class="markdownIt-Anchor" href="#data-volume-生命周期管理"></a> data volume 生命周期管理</h3>
 <ul>
@@ -359,7 +413,14 @@
 </ul>
 <h2 id="第七章-多主机管理"><a class="markdownIt-Anchor" href="#第七章-多主机管理"></a> 第七章 多主机管理</h2>
 <h3 id="创建-machine"><a class="markdownIt-Anchor" href="#创建-machine"></a> 创建 machine</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker-machine create --driver virtualbox lyq-host1</span><br><span class="line"></span><br><span class="line">docker-machine ls</span><br><span class="line">docker-machine ssh default</span><br><span class="line">docker-machine ssh lyq-host1</span><br><span class="line">docker-machine env lyq-host1</span><br><span class="line">eval $(docker-machine env)</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker-machine create --driver virtualbox lyq-host1
+
+docker-machine ls
+docker-machine ssh default
+docker-machine ssh lyq-host1
+docker-machine env lyq-host1
+eval $(docker-machine env)
+</code></pre>
 <h2 id="第八章-容器网络"><a class="markdownIt-Anchor" href="#第八章-容器网络"></a> 第八章 容器网络</h2>
 <p>P118-P172</p>
 <ul>
@@ -379,13 +440,34 @@
 </ul>
 <h3 id="overlay-网络"><a class="markdownIt-Anchor" href="#overlay-网络"></a> overlay 网络</h3>
 <h4 id="启动-consul-服务"><a class="markdownIt-Anchor" href="#启动-consul-服务"></a> 启动 consul 服务</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8500:8500 --name consul  progrium/consul -server -bootstrap</span><br><span class="line">http://192.168.99.101:8500/ui/#/dc1/services</span><br><span class="line">/etc/init.d/docker status</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker run -d -p 8500:8500 --name consul  progrium/consul -server -bootstrap
+http://192.168.99.101:8500/ui/#/dc1/services
+/etc/init.d/docker status
+</code></pre>
 <h4 id="创建-overlay-节点"><a class="markdownIt-Anchor" href="#创建-overlay-节点"></a> 创建 overlay 节点</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">docker-machine create --driver virtualbox --engine-opt=&quot;cluster-store=consul://$(docker-machine ip default):8500&quot; --engine-opt=&quot;cluster-advertise=eth1:2376&quot;  consul-test-host1</span><br><span class="line">docker-machine create --driver virtualbox --engine-opt=&quot;cluster-store=consul://$(docker-machine ip default):8500&quot; --engine-opt=&quot;cluster-advertise=eth1:2376&quot;  consul-test-host2</span><br><span class="line">cat /var/lib/boot2docker/profile</span><br><span class="line"></span><br><span class="line">docker network ls</span><br><span class="line">docker network create --driver overlay ov_net1</span><br><span class="line">docker network inspect ov_net1</span><br><span class="line">docker run -itd --name bbox1 --network ov_net1 busybox</span><br><span class="line">docker exec bbox1 ip r</span><br><span class="line">docker network inspect docker_gwbridge</span><br><span class="line">docker exec -it bbox1 ping -c 2 www.baidu.com</span><br><span class="line">docker run -itd --name bbox2 --network ov_net1 busybox</span><br><span class="line">docker exec -it bbox1 ping -c 2 bbox2</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">docker-machine create --driver virtualbox --engine-opt=&quot;cluster-store=consul://$(docker-machine ip default):8500&quot; --engine-opt=&quot;cluster-advertise=eth1:2376&quot;  consul-test-host1
+docker-machine create --driver virtualbox --engine-opt=&quot;cluster-store=consul://$(docker-machine ip default):8500&quot; --engine-opt=&quot;cluster-advertise=eth1:2376&quot;  consul-test-host2
+cat /var/lib/boot2docker/profile
+
+docker network ls
+docker network create --driver overlay ov_net1
+docker network inspect ov_net1
+docker run -itd --name bbox1 --network ov_net1 busybox
+docker exec bbox1 ip r
+docker network inspect docker_gwbridge
+docker exec -it bbox1 ping -c 2 www.baidu.com
+docker run -itd --name bbox2 --network ov_net1 busybox
+docker exec -it bbox1 ping -c 2 bbox2
+</code></pre>
 <p>Overlay 网络中的容器可以直接通信，同时 docker 也实现了 DNS 服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ip netns exec 1-defedcd6bf brctl show</span><br><span class="line"></span><br><span class="line">ip netns exec 1-defedcd6bf ip -d l show vxlan0</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">ip netns exec 1-defedcd6bf brctl show
+
+ip netns exec 1-defedcd6bf ip -d l show vxlan0
+</code></pre>
 <h4 id="boot2docker-安装包"><a class="markdownIt-Anchor" href="#boot2docker-安装包"></a> boot2docker 安装包</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tce-load -wi vim</span><br><span class="line">tce-load -wi bridge-utils（安装 brutal）</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">tce-load -wi vim
+tce-load -wi bridge-utils（安装 brutal）
+</code></pre>
 <h2 id="第九章-容器监控"><a class="markdownIt-Anchor" href="#第九章-容器监控"></a> 第九章 容器监控</h2>
 <ul>
 <li>docker container stats</li>
@@ -580,12 +662,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">29k</span>
+    <span title="站点总字数">28k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">26 分钟</span>
+    <span title="站点阅读时长">25 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
@@ -664,6 +746,16 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
   }, window.Gitalk);
 });
 </script>
+
+  <link rel="stylesheet" href="/js/google-code-prettify/skins/atelier-forest-light.min.css" type="text/css">
+<script src="/js/google-code-prettify/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+      prettyPrint();
+  });
+</script>
+
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>

@@ -219,7 +219,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>860</span>
+              <span>854</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -271,12 +271,18 @@
 <ul>
 <li>linyouquan-test 机器上 ssh-keygen，然后执行 ssh-copy-id 将公钥添加到其他服务器</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id linyouquan@linyouquan-master</span><br><span class="line">ssh-copy-id linyouquan@linyouquan-worker1</span><br><span class="line">ssh-copy-id linyouquan@linyouquan-worker2</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">ssh-copy-id linyouquan@linyouquan-master
+ssh-copy-id linyouquan@linyouquan-worker1
+ssh-copy-id linyouquan@linyouquan-worker2
+</code></pre>
 <p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86.png" alt="" /></p>
 <ul>
 <li>因为要求4台虚拟机之间能相互 ssh，可以重复4次以上步骤，不过我选择的是：在 linyouquan-test 机器把自己的公钥加到自己的 authorized_keys，然后4台机器使用相同的公私钥和 authorized_keys（这么做不安全，不过是自己的测试环境就无所谓了）</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.13:/home/linyouquan/</span><br><span class="line">linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.14:/home/linyouquan/</span><br><span class="line">linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.15:/home/linyouquan/</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="">linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.13:/home/linyouquan/
+linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.14:/home/linyouquan/
+linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.15:/home/linyouquan/
+</code></pre>
 <h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Nurbiya_K/article/details/102962763">https://blog.csdn.net/Nurbiya_K/article/details/102962763</a></li>
@@ -438,12 +444,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">29k</span>
+    <span title="站点总字数">28k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">26 分钟</span>
+    <span title="站点阅读时长">25 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
@@ -522,6 +528,16 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
   }, window.Gitalk);
 });
 </script>
+
+  <link rel="stylesheet" href="/js/google-code-prettify/skins/atelier-forest-light.min.css" type="text/css">
+<script src="/js/google-code-prettify/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+      prettyPrint();
+  });
+</script>
+
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>
