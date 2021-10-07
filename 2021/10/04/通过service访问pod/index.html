@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言 如果一组 Pod 对外提供服务（比如 HTTP），它们的 IP 很有可能发生变化，那么客户端如何找到并访问这个服务呢？ Kubernetes 给出的解决方案是 Service。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过service访问pod">
+<meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/2021/10/04/%E9%80%9A%E8%BF%87service%E8%AE%BF%E9%97%AEpod/index.html">
+<meta property="og:site_name" content="Chandson&#39;s Blog">
+<meta property="og:description" content="前言 如果一组 Pod 对外提供服务（比如 HTTP），它们的 IP 很有可能发生变化，那么客户端如何找到并访问这个服务呢？ Kubernetes 给出的解决方案是 Service。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cluster_ip%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B00.png">
+<meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cluster_ip%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B01.png">
+<meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cluster_ip%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B02.png">
+<meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cluster_ip%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B01.png">
+<meta property="article:published_time" content="2021-10-04T08:49:41.000Z">
+<meta property="article:modified_time" content="2021-10-07T11:08:37.432Z">
+<meta property="article:author" content="Chandson">
+<meta property="article:tag" content="k8s">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cluster_ip%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B00.png">
+
+<link rel="canonical" href="https://github.com/Chandson/Chandson.github.io/2021/10/04/%E9%80%9A%E8%BF%87service%E8%AE%BF%E9%97%AEpod/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>通过service访问pod | Chandson's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chandson's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">认真对待生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-footprints">
+
+    <a href="/footprints/" rel="section"><i class="fa fa-footprints fa-fw"></i>足迹</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Chandson/Chandson.github.io/2021/10/04/%E9%80%9A%E8%BF%87service%E8%AE%BF%E9%97%AEpod/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.jpg">
+      <meta itemprop="name" content="Chandson">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chandson's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通过service访问pod
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-04 16:49:41" itemprop="dateCreated datePublished" datetime="2021-10-04T16:49:41+08:00">2021-10-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-07 19:08:37" itemprop="dateModified" datetime="2021-10-07T19:08:37+08:00">2021-10-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>如果一组 Pod 对外提供服务（比如 HTTP），它们的 IP 很有可能发生变化，那么客户端如何找到并访问这个服务呢？</p>
+<p>Kubernetes 给出的解决方案是 Service。</p>
+<p>ps: 本文主要参考《每天5分钟玩转k8s》第六章</p>
+<h1 id="创建-service"><a class="markdownIt-Anchor" href="#创建-service"></a> 创建 service</h1>
+<p>常见 service 之前先准备好 deployment</p>
+<ul>
+<li>deployment.yaml</li>
+</ul>
+<pre class="highlight"><code class=""> apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: test
+ spec:
+   replicas: 2
+   selector:
+     matchLabels:
+       app.kubernetes.io/name: test
+   template:
+     metadata:
+       labels:
+         app: web
+         app.kubernetes.io/name: test
+     spec:
+       containers:
+         - name: front-end
+           image: nginx
+           imagePullPolicy: IfNotPresent
+           ports:
+             - containerPort: 80
+</code></pre>
+<ul>
+<li>deployment2.yaml</li>
+</ul>
+<pre class="highlight"><code class=""> apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: test2
+ spec:
+   replicas: 2
+   selector:
+     matchLabels:
+       app.kubernetes.io/name: test
+   template:
+     metadata:
+       labels:
+         app: web
+         app.kubernetes.io/name: test
+     spec:
+       containers:
+         - name: front-end
+           image: nginx
+           imagePullPolicy: IfNotPresent
+           ports:
+             - containerPort: 80
+</code></pre>
+<ul>
+<li>service.yaml</li>
+</ul>
+<pre class="highlight"><code class="">apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx
+  labels:
+    app: web
+spec:
+  ports:
+  - port: 8080
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: web
+</code></pre>
+<ul>
+<li>依次 apply</li>
+</ul>
+<pre class="highlight"><code class="">kubectl apply -f deployment.yaml
+kubectl apply -f deployment2.yaml
+kubectl apply -f service.yaml
+</code></pre>
+<ul>
+<li>启动效果如下</li>
+</ul>
+<pre class="highlight"><code class="">linyouquan@linyouquan-master:~$ kubectl get pods -o wide
+NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE                 NOMINATED NODE   READINESS GATES
+test-86598b4587-7gll2    1/1     Running   0          17m   10.244.2.36   linyouquan-worker1   &lt;none&gt;           &lt;none&gt;
+test-86598b4587-rfbc7    1/1     Running   0          17m   10.244.1.77   linyouquan-worker2   &lt;none&gt;           &lt;none&gt;
+test2-86598b4587-rxl6q   1/1     Running   0          17m   10.244.1.75   linyouquan-worker2   &lt;none&gt;           &lt;none&gt;
+test2-86598b4587-tp45z   1/1     Running   0          17m   10.244.1.76   linyouquan-worker2   &lt;none&gt;           &lt;none&gt;
+</code></pre>
+<pre class="highlight"><code class="">linyouquan@linyouquan-master:~$ kubectl get service -o wide
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP    14d   &lt;none&gt;
+my-nginx     ClusterIP   10.100.68.242   &lt;none&gt;        8080/TCP   22s   app=web
+</code></pre>
+<h2 id="通过-pod-ip-访问-nginx"><a class="markdownIt-Anchor" href="#通过-pod-ip-访问-nginx"></a> 通过 pod ip 访问 nginx</h2>
+<ul>
+<li>找一台 linyouquan-worker1 的实例</li>
+</ul>
+<pre class="highlight"><code class="">linyouquan@linyouquan-master:~$ curl 10.244.2.36
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html &#123; color-scheme: light dark; &#125;
+body &#123; width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; &#125;
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<ul>
+<li>找一台 linyouquan-worker2 的实例</li>
+</ul>
+<pre class="highlight"><code class="">linyouquan@linyouquan-master:~$ curl 10.244.1.77
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html &#123; color-scheme: light dark; &#125;
+body &#123; width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; &#125;
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="通过-cluster-ip-访问-nginx"><a class="markdownIt-Anchor" href="#通过-cluster-ip-访问-nginx"></a> 通过 cluster ip 访问 nginx</h2>
+<p>cluster ip 虽然无法 Ping 通，但服务可以正常访问</p>
+<pre class="highlight"><code class="">linyouquan@linyouquan-master:~$ curl 10.100.68.242:8080
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html &#123; color-scheme: light dark; &#125;
+body &#123; width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; &#125;
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h1 id="cluster-ip-底层实现"><a class="markdownIt-Anchor" href="#cluster-ip-底层实现"></a> cluster ip 底层实现</h1>
+<ul>
+<li>kube-proxy 是 Kubernetes 的核心组件，部署在每个 Nod e节点上，它是实现 Kubernetes Service 的通信与负载均衡机制的重要组件; kube-proxy 负责为 Pod 创建代理服务，从 apiserver 获取所有 server 信息，并根据 server 信息创建代理服务，实现 server 到 Pod 的请求路由和转发，从而实现 K8s 层级的虚拟转发网络。</li>
+<li>kube-proxy 提供三种模式：userspace （Kubernetes1.2版本之前）、iptables、ipvs（推荐的），如果不满足 ipvs 时，会自动降为 iptables 模式，本文主要讲的就是 iptables 模式。</li>
+</ul>
+<h2 id="数据流"><a class="markdownIt-Anchor" href="#数据流"></a> 数据流</h2>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cluster_ip%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B00.png" alt="" /></p>
+<p><strong>ps:</strong> 图片来自 <a target="_blank" rel="noopener" href="https://www.modb.pro/db/50708">kube-proxy 如何实现流量转发<br />
+</a></p>
+<h2 id="具体分析"><a class="markdownIt-Anchor" href="#具体分析"></a> 具体分析</h2>
+<ul>
+<li>查看 iptables 规则</li>
+</ul>
+<pre class="highlight"><code class="">sudo iptables -t nat -nL --line &gt; iptables
+</code></pre>
+<ul>
+<li>由于 kube-proxy 在 iptables 模式下的 ClusterIP 只是单主机可见，所以只能在集群中的某一个节点（只要是集群中的节点即可）上面或者 Pod 中访问这些集群 IP（Cluster IP）， 它的数据流是出访数据流，数据优先从 OUTPUT 链出访（对应下图的1）</li>
+<li>所有访问 Cluster IP 的源 IP，如果源 IP 不是 Pod IP 段，一律进行打标记<code>--set-xmark 0x4000/0x4000</code>（结合<code>sudo iptables-save -t nat | grep -i KUBE-MARK-MASQ</code>查看），然后继续匹配下一条规则；如果源 IP 是 Pod IP 段，会使用 iptables 的 random 模块均等的分发流量</li>
+</ul>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cluster_ip%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B01.png" alt="" /></p>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cluster_ip%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B02.png" alt="" /></p>
+<pre class="highlight"><code class="">Chain KUBE-MARK-MASQ (21 references)
+num  target     prot opt source               destination
+1    MARK       all  --  0.0.0.0/0            0.0.0.0/0            MARK or 0x4000
+</code></pre>
+<pre class="highlight"><code class="">Chain KUBE-SEP-H6O55TUZBIR4SYL4 (1 references)
+num  target     prot opt source               destination
+1    KUBE-MARK-MASQ  all  --  10.244.1.75          0.0.0.0/0            /* default/my-nginx */
+2    DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            /* default/my-nginx */ tcp to:10.244.1.75:80
+</code></pre>
+<pre class="highlight"><code class="">Chain KUBE-SEP-V4A574V5NO6T5WMR (1 references)
+num  target     prot opt source               destination
+1    KUBE-MARK-MASQ  all  --  10.244.1.76          0.0.0.0/0            /* default/my-nginx */
+2    DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            /* default/my-nginx */ tcp to:10.244.1.76:80
+</code></pre>
+<pre class="highlight"><code class="">Chain KUBE-SEP-ZQHPBLVJ2UCJSHQX (1 references)
+num  target     prot opt source               destination
+1    KUBE-MARK-MASQ  all  --  10.244.1.77          0.0.0.0/0            /* default/my-nginx */
+2    DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            /* default/my-nginx */ tcp to:10.244.1.77:80
+</code></pre>
+<pre class="highlight"><code class="">Chain KUBE-SEP-OJC4IE2KGBPDYS4M (1 references)
+num  target     prot opt source               destination
+1    KUBE-MARK-MASQ  all  --  10.244.2.36          0.0.0.0/0            /* default/my-nginx */
+2    DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            /* default/my-nginx */ tcp to:10.244.2.36:80
+</code></pre>
+<ul>
+<li>接下来是 POSTROUTING（对应下图的2），只要标记了<code>0x4000/0x4000</code>的包就一律做 MASQUERADE（SNAT）</li>
+</ul>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/cluster_ip%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B01.png" alt="" /></p>
+<pre class="highlight"><code class="">Chain KUBE-POSTROUTING (1 references)
+num  target     prot opt source               destination
+1    RETURN     all  --  0.0.0.0/0            0.0.0.0/0            mark match ! 0x4000/0x4000
+2    MARK       all  --  0.0.0.0/0            0.0.0.0/0            MARK xor 0x4000
+3    MASQUERADE  all  --  0.0.0.0/0            0.0.0.0/0            /* kubernetes service traffic requiring SNAT */
+</code></pre>
+<h1 id="dns-访问-service"><a class="markdownIt-Anchor" href="#dns-访问-service"></a> DNS 访问 service</h1>
+<ul>
+<li>kubeadm 部署时会默认安装 kube-dns 组件。</li>
+</ul>
+<pre class="highlight"><code class="">linyouquan@linyouquan-master:~$ kubectl get deployment --namespace=kube-system
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+coredns   2/2     2            2           14d
+</code></pre>
+<ul>
+<li>kube-dns 是一个 DNS 服务器。每当有新的 Service 被创建，kube-dns 会添加该 Service 的 DNS 记录。Cluster 中的 Pod 可以通过 &lt;SERVICE_NAME&gt;.&lt;NAMESPACE_NAME&gt; 访问 Service。例如：</li>
+</ul>
+<pre class="highlight"><code class="">linyouquan@linyouquan-master:~$ kubectl run busybox1 --rm -it --image=busybox /bin/sh --overrides='&#123;&quot;apiVersion&quot;: &quot;v1&quot;, &quot;spec&quot;: &#123;&quot;nodeSelector&quot;: &#123; &quot;kubernetes.io/hostname&quot;: &quot;linyouquan-worker1&quot; &#125;&#125;&#125;'
+If you don't see a command prompt, try pressing enter.
+/ # wget my-nginx.default:8080
+Connecting to my-nginx.default:8080 (10.100.68.242:8080)
+saving to 'index.html'
+index.html           100% |**************************************************************************************************************************************************************************************************************|   615  0:00:00 ETA
+'index.html' saved
+/ # cat index.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html &#123; color-scheme: light dark; &#125;
+body &#123; width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; &#125;
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+/ #
+</code></pre>
+<h1 id="外网如何访问-service"><a class="markdownIt-Anchor" href="#外网如何访问-service"></a> 外网如何访问 service</h1>
+<h2 id="cluster-ip"><a class="markdownIt-Anchor" href="#cluster-ip"></a> cluster ip</h2>
+<p>前面讲的都是 cluster ip</p>
+<h2 id="nodeport"><a class="markdownIt-Anchor" href="#nodeport"></a> NodePort</h2>
+<p>Service 通过 Cluster 节点的静态端口对外提供服务。Cluster 外部可以通过 <strong>NodeIP:NodePort</strong> 访问 Service。</p>
+<ul>
+<li>修改 service.yaml，重新 apply</li>
+</ul>
+<pre class="highlight"><code class="">apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx
+  labels:
+    app: web
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: web
+</code></pre>
+<ul>
+<li>注意 8080 是 ClusterIP 监听的端口，30392 则是节点上监听的端口。Kubernetes 会从 30000-32767 中分配一个可用的端口，每个节点都会监听此端口并将请求转发给 Service。</li>
+</ul>
+<pre class="highlight"><code class="">linyouquan@linyouquan-master:~$ kubectl get service -o wide
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE     SELECTOR
+kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP          14d     &lt;none&gt;
+my-nginx     NodePort    10.100.68.242   &lt;none&gt;        8080:30392/TCP   5h40m   app=web
+</code></pre>
+<ul>
+<li>依次执行下面命令，可以发现都访问成功</li>
+</ul>
+<pre class="highlight"><code class="">curl 192.168.99.13:30392
+curl 192.168.99.14:30392
+curl 192.168.99.15:30392
+</code></pre>
+<h2 id="loadbalancer"><a class="markdownIt-Anchor" href="#loadbalancer"></a> LoadBalancer</h2>
+<p>Service 利用 cloud provider 特有的 load balancer 对外提供服务，cloud provider 负责将 load balancer 的流量导向 Service。目前支持的 cloud provider 有 GCP、AWS、Azur 等。</p>
+<h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
+<ul>
+<li>每天5分钟玩转k8s</li>
+<li><a target="_blank" rel="noopener" href="https://www.zsythink.net/archives/1199">iptables 详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.modb.pro/db/50708">kube-proxy 如何实现流量转发</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kevingrace/p/6655153.html">kubernetes核心组件kube-proxy - 运维笔记</a></li>
+<li><a target="_blank" rel="noopener" href="http://dockone.io/article/4884">Kubernetes的三种外部访问方式</a></li>
+<li><a target="_blank" rel="noopener" href="https://serverfault.com/questions/1035264/why-does-iptables-keep-looking-for-the-next-rule-when-an-extension-target-is-use">Why does iptables keep looking for the next rule when an extension target is used?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.kancloud.cn/pshizhsysu/linux/2084993">iptables mark 使用</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lmix___/article/details/115399397">kube-proxy 实现原理</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/02/%E5%8D%95%E6%9C%BA%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C/" rel="prev" title="单机容器网络">
+      <i class="fa fa-chevron-left"></i> 单机容器网络
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-service"><span class="nav-number">2.</span> <span class="nav-text"> 创建 service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-pod-ip-%E8%AE%BF%E9%97%AE-nginx"><span class="nav-number">2.1.</span> <span class="nav-text"> 通过 pod ip 访问 nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-cluster-ip-%E8%AE%BF%E9%97%AE-nginx"><span class="nav-number">2.2.</span> <span class="nav-text"> 通过 cluster ip 访问 nginx</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cluster-ip-%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text"> cluster ip 底层实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">3.1.</span> <span class="nav-text"> 数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%88%86%E6%9E%90"><span class="nav-number">3.2.</span> <span class="nav-text"> 具体分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dns-%E8%AE%BF%E9%97%AE-service"><span class="nav-number">4.</span> <span class="nav-text"> DNS 访问 service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E7%BD%91%E5%A6%82%E4%BD%95%E8%AE%BF%E9%97%AE-service"><span class="nav-number">5.</span> <span class="nav-text"> 外网如何访问 service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cluster-ip"><span class="nav-number">5.1.</span> <span class="nav-text"> cluster ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodeport"><span class="nav-number">5.2.</span> <span class="nav-text"> NodePort</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loadbalancer"><span class="nav-number">5.3.</span> <span class="nav-text"> LoadBalancer</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text"> 参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chandson"
+      src="/images/photo.jpg">
+  <p class="site-author-name" itemprop="name">Chandson</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Chandson" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Chandson"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whisperer.hn@gmail.com" title="E-Mail → mailto:whisperer.hn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chandson</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">36k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'db98a04ea7d940c04260',
+      clientSecret: '6b894689b00cbaf58abc37aa91663de495c344bf',
+      repo        : 'Chandson.github.io',
+      owner       : 'Chandson',
+      admin       : ['Chandson'],
+      id          : '055de96136475b6d053329ffcbb5fe99',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+  <link rel="stylesheet" href="/js/google-code-prettify/skins/atelier-forest-light.min.css" type="text/css">
+<script src="/js/google-code-prettify/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+      prettyPrint();
+  });
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
