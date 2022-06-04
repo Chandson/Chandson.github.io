@@ -23,15 +23,22 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Chandson&#39;s Blog">
-<meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/tags/%E8%B0%83%E5%BA%A6/index.html">
+  <meta name="description" content="搭建环境  远程 linux ubuntu server：用于编译 openjdk8 代码； 本地 mac 系统 + vscode + remote ssh 插件，用于阅读代码；  搭建过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openjdk8 代码阅读环境搭建">
+<meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/2022/06/04/openjdk8-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Chandson&#39;s Blog">
+<meta property="og:description" content="搭建环境  远程 linux ubuntu server：用于编译 openjdk8 代码； 本地 mac 系统 + vscode + remote ssh 插件，用于阅读代码；  搭建过程">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/openjdk8%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB.png">
+<meta property="article:published_time" content="2022-06-04T10:03:05.000Z">
+<meta property="article:modified_time" content="2022-06-04T11:10:21.113Z">
 <meta property="article:author" content="Chandson">
+<meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/openjdk8%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB.png">
 
-<link rel="canonical" href="https://github.com/Chandson/Chandson.github.io/tags/%E8%B0%83%E5%BA%A6/">
+<link rel="canonical" href="https://github.com/Chandson/Chandson.github.io/2022/06/04/openjdk8-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
 
 
 <script id="page-configurations">
@@ -39,12 +46,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: 调度 | Chandson's Blog</title>
+  <title>openjdk8 代码阅读环境搭建 | Chandson's Blog</title>
   
 
 
@@ -163,77 +170,185 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">调度
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Chandson/Chandson.github.io/2022/06/04/openjdk8-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.jpg">
+      <meta itemprop="name" content="Chandson">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chandson's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          openjdk8 代码阅读环境搭建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-04 18:03:05 / 修改时间：19:10:21" itemprop="dateCreated datePublished" datetime="2022-06-04T18:03:05+08:00">2022-06-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+        <h1>搭建环境</h1>
+<ul>
+<li>远程 linux ubuntu server：用于编译 openjdk8 代码；</li>
+<li>本地 mac 系统 + vscode + remote ssh 插件，用于阅读代码；</li>
+</ul>
+<h1>搭建过程</h1>
+<ol>
+<li>
+<p>在 <a target="_blank" rel="noopener" href="https://jdk.java.net/java-se-ri/8-MR3">https://jdk.java.net/java-se-ri/8-MR3</a> 下载启动 jdk，我这边下载的是 openjdk-8u41-b04-linux-x64-14_jan_2020.tar.gz。</p>
+</li>
+<li>
+<p>上传启动 jdk 到 linux server 的 /opt 目录，并解压，得到 <code>/opt/java-se-8u41-ri</code>。</p>
+</li>
+<li>
+<p>在 linux server 上执行下面的命令</p>
+</li>
+</ol>
+<pre><code>apt update &amp;&amp; apt install -y openssh-server &amp;&amp; apt install -y vim &amp;&amp; apt install -y git &amp;&amp; apt install -y wget &amp;&amp; \
+apt install -y \
+        libx11-dev \
+        libxext-dev \
+        libxrender-dev \
+        libxtst-dev \
+        libxt-dev \
+        libcups2-dev \
+        libfreetype6-dev \
+        libasound2-dev \
+        libfontconfig1-dev \
+        cpio \
+        unzip \
+        zip \
+        ccache \
+        cmake \
+        gdb \
+        rsync \
+        gcc-4.8 \
+        g++-4.8 \
+        ant \
+        net-tools \
+        bear
+</code></pre>
+<pre><code>update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8
+</code></pre>
+<ol start="4">
+<li>在 linux server 上 git clone openjdk8 源码，社区的 git 项目是</li>
+</ol>
+<pre><code>git@github.com:openjdk/jdk8u.git
+</code></pre>
+<p>而我已经提前 fork 好了项目，操作如下</p>
+<pre><code>mkdir -p /Users/bytedance/infra/git
+cd /Users/bytedance/infra/git
+git clone git@github.com:Chandson/jdk8u.git
+git checkout Chandson-dev
+</code></pre>
+<ol start="5">
+<li>编译 openjdk8 代码</li>
+</ol>
+<pre><code>cd /Users/bytedance/infra/git/jdk8u
+</code></pre>
+<pre><code>bash ./configure --with-target-bits=64 --with-boot-jdk=/opt/java-se-8u41-ri --with-debug-level=slowdebug --enable-debug-symbols ZIP_DEBUGINFO_FILES=0
+</code></pre>
+<pre><code>bear make all ZIP_DEBUGINFO_FILES=0
+</code></pre>
+<p>其中，bear 命令用于生成 compile_commands.json 文件。编译时间可能在 20s 到 20min 之间。我自己在本地 mac 系统（16GB 内存）编译花了 20 多 min，在 linux server 上（256GB 内存）编译只花了 20 多 s。</p>
+<ol start="6">
+<li>
+<p>vscode + remote ssh 连接到 linux server，按照 vscode 提示安装好各种插件；</p>
+</li>
+<li>
+<p>在 .vscode 目录下配置好 c_cpp_properties.json，launch.json 和 tasks.json(已经在 <a href="mailto:git@github.com">git@github.com</a>:Chandson/jdk8u.git 提前配置好了)；</p>
+</li>
+<li>
+<p>至此，就可以开始阅读和 debug openjdk8 源码了。<br>
+<img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/openjdk8%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB.png" alt=""></p>
+</li>
+</ol>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-19T02:35:33+08:00"
-              content="2021-09-19">
-          09-19
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/19/cgroup%E6%80%BB%E7%BB%93/" itemprop="url">
-            <span itemprop="name">cgroups 总结</span>
-          </a>
-      </div>
+        
 
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-07-10T19:52:36+08:00"
-              content="2021-07-10">
-          07-10
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/07/10/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACdocker/" itemprop="url">
-            <span itemprop="name">每天5分钟玩转docker</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/23/%E6%8E%92%E6%9F%A5%E7%9E%AC%E6%97%B6%E8%BF%9E%E6%8E%A5%E6%89%80%E5%B1%9E%E8%BF%9B%E7%A8%8B/" rel="prev" title="排查瞬时连接所属进程">
+      <i class="fa fa-chevron-left"></i> 排查瞬时连接所属进程
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
-  
-
   
 
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -280,6 +395,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">搭建环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">搭建过程</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -415,6 +531,25 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'db98a04ea7d940c04260',
+      clientSecret: '6b894689b00cbaf58abc37aa91663de495c344bf',
+      repo        : 'Chandson.github.io',
+      owner       : 'Chandson',
+      admin       : ['Chandson'],
+      id          : '3deaa15300515aabd5c06acafdab433c',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
   <link rel="stylesheet" href="/js/google-code-prettify/skins/atelier-forest-light.min.css" type="text/css">
 <script src="/js/google-code-prettify/prettify.js" type="text/javascript"></script>
