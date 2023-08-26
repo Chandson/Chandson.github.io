@@ -9,86 +9,37 @@
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="footprints" style="width: 100%;height:480px;"></div>
+    <div id="footprints" style="width: 100%;height: 768px; position: absolute;"></div>
     <script type="text/javascript">
 var myChart = echarts.init(document.getElementById('footprints'));
-    $.get('/js/src/beijing.json', result => {
+    $.get('/js/src/china.json', result => {
       // 注册 echarts 地图
-      echarts.registerMap('北京市', result);
+      echarts.registerMap('中国', result);
       var option = {
         tooltip: {
           trigger: 'item',
-          enterable: true,
-          formatter: function(params) {
-              var value = params.value;
-              return params.name + ': ' + value[2];
-          }
+          enterable: true
+        },
+        grid: {
+          left: '3%',
+          right: '40%',
+          top: '50%',
+          containeLabel: true
         },
         title: {
-          text: '北京地图',
+          text: '我的足迹',
           x: "center",
         },
         geo: {
-          map: '北京市',
+          map: '中国',
           label: {},
           //roam: true,
           itemStyle: {
 
           }
         },
-        series: [{
-          type: 'effectScatter',
-          coordinateSystem: 'geo',
-          rippleEffect: {
-            brushType: 'stroke'
-          },
-          symbolSize: function(val, params) {
-            return 10;
-          },
-          itemStyle: {                   // 配置每个数据点的样式
-            color: function(params) {
-              var color = '';
-              var value = params.value;
-              if(value[3] == true) {
-                color = 'blue'
-              }
-              if(value[3] == false) {
-                color = 'green'
-              }
-              if(value[3] == 'youquan') {
-                color = 'red'
-              }
-              if(value[3] == 'xiaomiao') {
-                color = 'red'
-              }
-              return color;
-            }
-          },
-          data: [
-              {
-                  name: '香炉峰',
-                  value: [116.178733, 39.991952, '海拔575m,2021-07-24成功打卡', true]
-              },
-              {
-                  name: '凤凰岭',
-                  value: [116.084981,40.106778, '海拔239m,2021-08-14成功打开', true]
-              },
-              {
-                  name: '大峪山',
-                  value: [116.202591,40.31081, 'todo: 2021-08-21', false]
-              },
-              {
-                  name: '友权',
-                  value: [116.328709, 39.976334, '喜欢计算机', 'youquan']
-              },
-              {
-                  name: '小喵',
-                  // value: [116.469409, 39.998521, '爱爬山爱读书', 'xiaomiao']
-                  value: [116.228971, 40.210343, '爱爬山爱读书', 'xiaomiao']
-              }
-          ],
-        },
-        {
+        series: [
+          {
             name: 'Route',
             type: 'lines',
             coordinateSystem: 'geo',
@@ -101,61 +52,51 @@ var myChart = echarts.init(document.getElementById('footprints'));
             polyline: true,
             lineStyle: {
                 color: '#c46e54',
-                width: 5,
+                width: 1,
                 opacity: 1,
-                type: 'dotted'
+                //type: 'dotted'
             },
             effect: {
                 show: true,
                 period: 32,
                 color: '#a10000',
-                constantSpeed: 16,
+                constantSpeed: 64,
                 trailLength: 10,
-                symbolSize: [20, 12],
+                symbolSize: [10, 6],
                 // 这段代码含义是？
                 symbol: 'path://M35.5 40.5c0-22.16 17.84-40 40-40s40 17.84 40 40c0 1.6939-.1042 3.3626-.3067 5H35.8067c-.2025-1.6374-.3067-3.3061-.3067-5zm90.9621-2.6663c-.62-1.4856-.9621-3.1182-.9621-4.8337 0-6.925 5.575-12.5 12.5-12.5s12.5 5.575 12.5 12.5a12.685 12.685 0 0 1-.1529 1.9691l.9537.5506-15.6454 27.0986-.1554-.0897V65.5h-28.7285c-7.318 9.1548-18.587 15-31.2715 15s-23.9535-5.8452-31.2715-15H15.5v-2.8059l-.0937.0437-8.8727-19.0274C2.912 41.5258.5 37.5549.5 33c0-6.925 5.575-12.5 12.5-12.5S25.5 26.075 25.5 33c0 .9035-.0949 1.784-.2753 2.6321L29.8262 45.5h92.2098z'
             },
             data: [{
                 coords: [
-                    [116.228971,40.210343],
-                    [116.202591,40.31081]
+                    [115.65,22.92], // 广东陆丰市
+                    [114.06,22.54], // 广东深圳市
+                    [115.65,22.92], // 广东陆丰市
+                    [113.26,23.13], // 广东广州市
+                    [115.65,22.92], // 广东陆丰市
+                    [114.06,22.54], // 广东深圳市
+                    [116.41,39.90], // 北京市
+                    [113.12,36.20], // 山西长治市
+                    [116.41,39.90], // 北京市
+                    [126.97,46.65], // 黑龙江哈尔滨
+                    [117.20,39.09], // 天津市
+                    [116.41,39.90], // 北京市
+                    [119.12,32.25], // 江苏南京
+                    [119.41,32.39], // 江苏扬州
+                    [120.31,31.49], // 江苏无锡
+                    [120.62,31.30], // 江苏苏州
+                    [116.41,39.90], // 北京市
+                    [109.33,40.33], // 内蒙古库布齐沙漠
+                    [116.41,39.90], // 北京市
+                    [121.47,31.23], // 上海市
+                    [116.41,39.90], // 北京市
+                    [120.21,30.25], // 杭州市
+                    [116.41,39.90], // 北京市
+                    [114.06,22.54], // 广东深圳市
+                    [115.65,22.92], // 广东陆丰市
                 ]
             }]
         },
-        {
-            name: 'Route',
-            type: 'lines',
-            coordinateSystem: 'geo',
-            geoIndex: 0,
-            emphasis: {
-                label: {
-                    show: false
-                }
-            },
-            polyline: true,
-            lineStyle: {
-                color: '#c46e54',
-                width: 5,
-                opacity: 1,
-                type: 'dotted'
-            },
-            effect: {
-                show: true,
-                period: 32,
-                color: '#a10000',
-                constantSpeed: 16,
-                trailLength: 10,
-                symbolSize: [20, 12],
-                // 这段代码含义是？
-                symbol: 'path://M35.5 40.5c0-22.16 17.84-40 40-40s40 17.84 40 40c0 1.6939-.1042 3.3626-.3067 5H35.8067c-.2025-1.6374-.3067-3.3061-.3067-5zm90.9621-2.6663c-.62-1.4856-.9621-3.1182-.9621-4.8337 0-6.925 5.575-12.5 12.5-12.5s12.5 5.575 12.5 12.5a12.685 12.685 0 0 1-.1529 1.9691l.9537.5506-15.6454 27.0986-.1554-.0897V65.5h-28.7285c-7.318 9.1548-18.587 15-31.2715 15s-23.9535-5.8452-31.2715-15H15.5v-2.8059l-.0937.0437-8.8727-19.0274C2.912 41.5258.5 37.5549.5 33c0-6.925 5.575-12.5 12.5-12.5S25.5 26.075 25.5 33c0 .9035-.0949 1.784-.2753 2.6321L29.8262 45.5h92.2098z'
-            },
-            data: [{
-                coords: [
-                    [116.328709, 39.976334],
-                    [116.202591,40.31081]
-                ]
-            }]
-        }]
+        ]
       };
       myChart.setOption(option);
     })

@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="搭建环境  远程 linux ubuntu server：用于编译 openjdk8 代码； 本地 mac 系统 + vscode + remote ssh 插件，用于阅读代码；  搭建过程">
+  <meta name="description" content="搭建环境  远程 linux ubuntu server：用于编译 openjdk8 代码； 本地 mac 系统 + vscode + remote ssh 插件，用于阅读代码；   搭建过程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="openjdk8 代码阅读环境搭建">
 <meta property="og:url" content="https://github.com/Chandson/Chandson.github.io/2022/06/04/openjdk8-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Chandson&#39;s Blog">
-<meta property="og:description" content="搭建环境  远程 linux ubuntu server：用于编译 openjdk8 代码； 本地 mac 系统 + vscode + remote ssh 插件，用于阅读代码；  搭建过程">
+<meta property="og:description" content="搭建环境  远程 linux ubuntu server：用于编译 openjdk8 代码； 本地 mac 系统 + vscode + remote ssh 插件，用于阅读代码；   搭建过程">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/openjdk8%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB.png">
 <meta property="article:published_time" content="2022-06-04T10:03:05.000Z">
@@ -238,12 +238,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>搭建环境</h1>
+        <h1 id="搭建环境"><a class="markdownIt-Anchor" href="#搭建环境"></a> 搭建环境</h1>
 <ul>
 <li>远程 linux ubuntu server：用于编译 openjdk8 代码；</li>
 <li>本地 mac 系统 + vscode + remote ssh 插件，用于阅读代码；</li>
 </ul>
-<h1>搭建过程</h1>
+<h1 id="搭建过程"><a class="markdownIt-Anchor" href="#搭建过程"></a> 搭建过程</h1>
 <ol>
 <li>
 <p>在 <a target="_blank" rel="noopener" href="https://jdk.java.net/java-se-ri/8-MR3">https://jdk.java.net/java-se-ri/8-MR3</a> 下载启动 jdk，我这边下载的是 openjdk-8u41-b04-linux-x64-14_jan_2020.tar.gz。</p>
@@ -255,7 +255,7 @@
 <p>在 linux server 上执行下面的命令</p>
 </li>
 </ol>
-<pre><code>apt update &amp;&amp; apt install -y openssh-server &amp;&amp; apt install -y vim &amp;&amp; apt install -y git &amp;&amp; apt install -y wget &amp;&amp; \
+<pre class="highlight"><code class="">apt update &amp;&amp; apt install -y openssh-server &amp;&amp; apt install -y vim &amp;&amp; apt install -y git &amp;&amp; apt install -y wget &amp;&amp; \
 apt install -y \
         libx11-dev \
         libxext-dev \
@@ -279,15 +279,15 @@ apt install -y \
         net-tools \
         bear
 </code></pre>
-<pre><code>update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8
+<pre class="highlight"><code class="">update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8
 </code></pre>
 <ol start="4">
 <li>在 linux server 上 git clone openjdk8 源码，社区的 git 项目是</li>
 </ol>
-<pre><code>git@github.com:openjdk/jdk8u.git
+<pre class="highlight"><code class="">git@github.com:openjdk/jdk8u.git
 </code></pre>
 <p>而我已经提前 fork 好了项目，操作如下</p>
-<pre><code>mkdir -p /Users/bytedance/infra/git
+<pre class="highlight"><code class="">mkdir -p /Users/bytedance/infra/git
 cd /Users/bytedance/infra/git
 git clone git@github.com:Chandson/jdk8u.git
 git checkout Chandson-dev
@@ -295,11 +295,11 @@ git checkout Chandson-dev
 <ol start="5">
 <li>编译 openjdk8 代码</li>
 </ol>
-<pre><code>cd /Users/bytedance/infra/git/jdk8u
+<pre class="highlight"><code class="">cd /Users/bytedance/infra/git/jdk8u
 </code></pre>
-<pre><code>bash ./configure --with-target-bits=64 --with-boot-jdk=/opt/java-se-8u41-ri --with-debug-level=slowdebug --enable-debug-symbols ZIP_DEBUGINFO_FILES=0
+<pre class="highlight"><code class="">bash ./configure --with-target-bits=64 --with-boot-jdk=/opt/java-se-8u41-ri --with-debug-level=slowdebug --enable-debug-symbols ZIP_DEBUGINFO_FILES=0
 </code></pre>
-<pre><code>bear make all ZIP_DEBUGINFO_FILES=0
+<pre class="highlight"><code class="">bear make all ZIP_DEBUGINFO_FILES=0
 </code></pre>
 <p>其中，bear 命令用于生成 compile_commands.json 文件。编译时间可能在 20s 到 20min 之间。我自己在本地 mac 系统（16GB 内存）编译花了 20 多 min，在 linux server 上（256GB 内存）编译只花了 20 多 s。</p>
 <ol start="6">
@@ -310,8 +310,8 @@ git checkout Chandson-dev
 <p>在 .vscode 目录下配置好 c_cpp_properties.json，launch.json 和 tasks.json(已经在 <a href="mailto:git@github.com">git@github.com</a>:Chandson/jdk8u.git 提前配置好了)；</p>
 </li>
 <li>
-<p>至此，就可以开始阅读和 debug openjdk8 源码了。<br>
-<img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/openjdk8%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB.png" alt=""></p>
+<p>至此，就可以开始阅读和 debug openjdk8 源码了。<br />
+<img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/openjdk8%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB.png" alt="" /></p>
 </li>
 </ol>
 
@@ -395,7 +395,7 @@ git checkout Chandson-dev
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">搭建环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">搭建过程</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text"> 搭建环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text"> 搭建过程</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -411,7 +411,7 @@ git checkout Chandson-dev
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -459,7 +459,7 @@ git checkout Chandson-dev
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

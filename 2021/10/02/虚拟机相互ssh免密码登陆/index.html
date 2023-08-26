@@ -238,7 +238,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>前言</h1>
+        <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
 <p>最近使用 virtualbox 搭建 k8s 集群，节点信息如下</p>
 <table>
 <thead>
@@ -267,23 +267,23 @@
 </tbody>
 </table>
 <p>后续除了用于 k8s 集群，还可以作为其他环境，例如 hdfs/yarn 等。平时各种实验可能要求在服务器之间不断穿梭，所以便产生了虚拟机相互 ssh 免密码登陆这个需求。</p>
-<h1>过程</h1>
+<h1 id="过程"><a class="markdownIt-Anchor" href="#过程"></a> 过程</h1>
 <ul>
 <li>linyouquan-test 机器上 ssh-keygen，然后执行 ssh-copy-id 将公钥添加到其他服务器</li>
 </ul>
-<pre><code>ssh-copy-id linyouquan@linyouquan-master
+<pre class="highlight"><code class="">ssh-copy-id linyouquan@linyouquan-master
 ssh-copy-id linyouquan@linyouquan-worker1
 ssh-copy-id linyouquan@linyouquan-worker2
 </code></pre>
-<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86.png" alt=""></p>
+<p><img src="https://chandson-blog-images.oss-cn-beijing.aliyuncs.com/blog/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86.png" alt="" /></p>
 <ul>
 <li>因为要求4台虚拟机之间能相互 ssh，可以重复4次以上步骤，不过我选择的是：在 linyouquan-test 机器把自己的公钥加到自己的 authorized_keys，然后4台机器使用相同的公私钥和 authorized_keys（这么做不安全，不过是自己的测试环境就无所谓了）</li>
 </ul>
-<pre><code>linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.13:/home/linyouquan/
+<pre class="highlight"><code class="">linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.13:/home/linyouquan/
 linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.14:/home/linyouquan/
 linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.15:/home/linyouquan/
 </code></pre>
-<h1>参考</h1>
+<h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Nurbiya_K/article/details/102962763">https://blog.csdn.net/Nurbiya_K/article/details/102962763</a></li>
 </ul>
@@ -371,7 +371,7 @@ linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.15:/home/linyou
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text"> 过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text"> 参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -387,7 +387,7 @@ linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.15:/home/linyou
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -435,7 +435,7 @@ linyouquan@linyouquan-test:~$ scp -r ./.ssh linyouquan@192.168.0.15:/home/linyou
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
