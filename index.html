@@ -169,6 +169,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Chandson/Chandson.github.io/2023/08/26/Kerberos-%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.jpg">
+      <meta itemprop="name" content="Chandson">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chandson's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/26/Kerberos-%E5%8D%8F%E8%AE%AE/" class="post-title-link" itemprop="url">Kerberos 协议</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-08-26 20:09:36 / 修改时间：20:19:31" itemprop="dateCreated datePublished" datetime="2023-08-26T20:09:36+08:00">2023-08-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">安全</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>529</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="kerberos-名词解释"><a class="markdownIt-Anchor" href="#kerberos-名词解释"></a> Kerberos 名词解释</h1>
+<ul>
+<li>KDC(key distributed center)：Kerberos 认证中心， 整个安全认证过程的票据生成管理服务，其中包含两个服务，AS 和 TGS
+<ul>
+<li>AS（Authentication service）：为 client 生成 TGT 的服务；</li>
+<li>TGS（ticket granting service）: 为 client 生成某个服务的票据；</li>
+</ul>
+</li>
+<li>TGT（Ticket Granting Ticket）：用于票据授权的票据；</li>
+<li>SS（Service Server）：应用服务器；</li>
+<li>Principal：又称为主体，用来标记一个用户或者服务的唯一的身份。根据约定，主体名称分为三个部分：主名称、实例和领域，格式为“主名称/实例@领域”
+<ul>
+<li>主体：用户或者服务名，例如 <a href="mailto:linyouquan@HADOOP.COM">linyouquan@HADOOP.COM</a> 中的 linyouquan；</li>
+<li>实例：对于用户主体，实例是可选的；但对于服务主体，实例则是必需的，例如服务：hdfs/_host@HADOOP.COM 中的 _host；</li>
+<li>领域：Kerberos 领域，例如 <a href="mailto:linyouquan@HADOOP.COM">linyouquan@HADOOP.COM</a> 中的 <a target="_blank" rel="noopener" href="http://HADOOP.COM">HADOOP.COM</a>；</li>
+</ul>
+</li>
+<li>Keytab 文件：一个包含了一个或多个 Principal 及其密码的文件，可以代替输入密码进行验证；</li>
+</ul>
+<h1 id="keberos-认证过程"><a class="markdownIt-Anchor" href="#keberos-认证过程"></a> Keberos 认证过程</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/08/26/Kerberos-%E5%8D%8F%E8%AE%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Chandson/Chandson.github.io/2022/06/04/openjdk8-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1047,105 +1155,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Chandson/Chandson.github.io/2021/07/22/%E6%B5%B7%E6%B7%80%E9%99%84%E8%BF%91%E7%9A%84%E5%B1%B1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.jpg">
-      <meta itemprop="name" content="Chandson">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chandson's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/22/%E6%B5%B7%E6%B7%80%E9%99%84%E8%BF%91%E7%9A%84%E5%B1%B1/" class="post-title-link" itemprop="url">海淀附近的山</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-22 23:20:49" itemprop="dateCreated datePublished" datetime="2021-07-22T23:20:49+08:00">2021-07-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-26 19:54:26" itemprop="dateModified" datetime="2023-08-26T19:54:26+08:00">2023-08-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">日记</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>上周的时候爬了海淀附近的一座山，当时脑海就在想海淀附近究竟有多少座山，每座山的海拔如何。身为一个程序员，本着一个考究的态度，开始了信息收集之旅。</p>
-<h2 id="信息收集阶段"><a class="markdownIt-Anchor" href="#信息收集阶段"></a> 信息收集阶段</h2>
-<ul>
-<li>首先是在谷歌上尝试了 <strong>“海淀 附近 山”</strong> 这几个关键字的组合，最终搜索到了马蜂窝的一篇文章 <a target="_blank" rel="noopener" href="https://www.mafengwo.cn/wenda/detail-7820704.html">https://www.mafengwo.cn/wenda/detail-7820704.html</a> 里面的一个回复，回复里面提到了海淀有67座山。回复内容如下：</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/22/%E6%B5%B7%E6%B7%80%E9%99%84%E8%BF%91%E7%9A%84%E5%B1%B1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1217,20 +1226,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1274,7 +1283,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">38k</span>
+    <span title="站点总字数">39k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
